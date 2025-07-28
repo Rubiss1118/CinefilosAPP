@@ -1,0 +1,370 @@
+{
+	"info": {
+		"_postman_id": "random-uuid",
+		"name": "CINEFILOSAPP API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Autenticación",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"usuario@example.com\",\n    \"password\": \"tu_contraseña\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/login",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8000",
+							"path": ["api", "login"]
+						}
+					}
+				},
+				{
+					"name": "Registro",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Nombre Usuario\",\n    \"email\": \"nuevo@example.com\",\n    \"password\": \"contraseña\",\n    \"password_confirmation\": \"contraseña\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/register",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8000",
+							"path": ["api", "register"]
+						}
+					}
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/logout",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8000",
+							"path": ["api", "logout"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Películas",
+			"item": [
+				{
+					"name": "Listar Películas",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:8000/api/peliculas?page=1&per_page=10",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8000",
+							"path": ["api", "peliculas"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Obtener Película",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:8000/api/peliculas/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8000",
+							"path": ["api", "peliculas", "1"]
+						}
+					}
+				},
+				{
+					"name": "Crear Película (Admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Nombre de la Película\",\n    \"director\": \"Nombre Director\",\n    \"genero\": \"Género\",\n    \"fecha_estreno\": \"2023-07-25\",\n    \"duracion\": 120,\n    \"sinopsis\": \"Descripción de la película\",\n    \"url_imagen\": \"https://ejemplo.com/imagen.jpg\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/peliculas",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8000",
+							"path": ["api", "peliculas"]
+						}
+					}
+				},
+				{
+					"name": "Actualizar Película (Admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Nombre Actualizado\",\n    \"director\": \"Director Actualizado\",\n    \"genero\": \"Género Actualizado\",\n    \"fecha_estreno\": \"2023-07-25\",\n    \"duracion\": 120,\n    \"sinopsis\": \"Descripción actualizada\",\n    \"url_imagen\": \"https://ejemplo.com/imagen-nueva.jpg\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/peliculas/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8000",
+							"path": ["api", "peliculas", "1"]
+						}
+					}
+				},
+				{
+					"name": "Eliminar Película (Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/peliculas/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8000",
+							"path": ["api", "peliculas", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Reseñas",
+			"item": [
+				{
+					"name": "Listar Reseñas de Película",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:8000/api/peliculas/1/resenas?page=1&per_page=10",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8000",
+							"path": ["api", "peliculas", "1", "resenas"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "10"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Crear Reseña",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pelicula_id\": 1,\n    \"calificacion\": 4,\n    \"resena\": \"Texto de la reseña\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/resenas",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8000",
+							"path": ["api", "resenas"]
+						}
+					}
+				},
+				{
+					"name": "Actualizar Reseña",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"calificacion\": 5,\n    \"resena\": \"Texto actualizado de la reseña\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/resenas/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8000",
+							"path": ["api", "resenas", "1"]
+						}
+					}
+				},
+				{
+					"name": "Eliminar Reseña",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/resenas/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8000",
+							"path": ["api", "resenas", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Ver Perfil",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/profile",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8000",
+							"path": ["api", "profile"]
+						}
+					}
+				},
+				{
+					"name": "Ver Mis Reseñas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/mis-resenas",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8000",
+							"path": ["api", "mis-resenas"]
+						}
+					}
+				},
+				{
+					"name": "Actualizar Perfil",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Nuevo Nombre\",\n    \"email\": \"nuevo@email.com\",\n    \"password\": \"nueva_contraseña\",\n    \"password_confirmation\": \"nueva_contraseña\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/profile",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8000",
+							"path": ["api", "profile"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "tu_token_aqui"
+		}
+	]
+}

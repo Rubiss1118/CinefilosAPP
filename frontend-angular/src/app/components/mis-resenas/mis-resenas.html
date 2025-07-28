@@ -1,0 +1,180 @@
+<app-navbar></app-navbar>
+
+<div class="mis-resenas-container">
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Header -->
+    <div class="header-section">
+      <h1>📝 Mis Reseñas</h1>
+      <p class="subtitle">Gestiona todas tus reseñas de películas</p>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="loading">
+      <p>⏳ Cargando tus reseñas...</p>
+    </div>
+
+    <!-- Estadísticas y Filtros -->
+    <div *ngIf="!loading" class="stats-and-filters">
+      <!-- Estadísticas -->
+      <div class="estadisticas-card">
+        <h3>📊 Tus Estadísticas</h3>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-number">{{ totalResenas }}</span>
+            <span class="stat-label">Reseñas totales</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">{{ promedioCalificacion.toFixed(1) }}</span>
+            <span class="stat-label">Promedio general</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">{{ getEstrellas(mejorCalificacion) }}</span>
+            <span class="stat-label">Mejor calificación</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtros -->
+      <div class="filtros-card">
+        <h3>🔍 Filtrar Reseñas</h3>
+        <div class="filtros-grid">
+          <div class="filtro-group">
+            <label>Por calificación:</label>
+            <select [(ngModel)]="filtroCalificacion" (change)="aplicarFiltros()" class="filtro-select">
+              <option value="">Todas las calificaciones</option>
+              <option value="5">⭐⭐⭐⭐⭐ - Excelente</option>
+              <option value="4">⭐⭐⭐⭐☆ - Bueno</option>
+              <option value="3">⭐⭐⭐☆☆ - Regular</option>
+              <option value="2">⭐⭐☆☆☆ - Malo</option>
+              <option value="1">⭐☆☆☆☆ - Terrible</option>
+            </select>
+          </div>
+          
+          <div class="filtro-group">
+            <label>Por película:</label>
+            <select 
+              [(ngModel)]="filtroPelicula" 
+              (change)="aplicarFiltros()"
+              class="filtro-select">
+              <option value="">Todas las películas</option>
+              <option *ngFor="let pelicula of todasLasPeliculas" [value]="pelicula.id">
+                {{ pelicula.titulo }}
+              </option>
+            </select>
+          </div>
+          
+          <button (click)="limpiarFiltros()" class="btn-limpiar">
+            🗑️ Limpiar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de Reseñas -->
+    <div *ngIf="!loading" class="resenas-section">
+      <!-- Mensaje si no hay reseñas -->
+      <div *ngIf="misResenas.length === 0" class="no-resenas">
+        <h3>😔 No tienes reseñas aún</h3>
+        <p>¡Comienza a escribir reseñas de tus películas favoritas!</p>
+        <button (click)="navigateTo('/peliculas')" class="btn-primary">
+          🎬 Ver Películas
+        </button>
+      </div>
+
+      <!-- Mensaje si no hay resultados filtrados -->
+      <div *ngIf="misResenas.length > 0 && resenasFiltradas.length === 0" class="no-resultados">
+        <h3>🔍 No se encontraron reseñas</h3>
+        <p>Intenta cambiar los filtros de búsqueda</p>
+        <button (click)="limpiarFiltros()" class="btn-secondary">
+          🗑️ Limpiar Filtros
+        </button>
+      </div>
+
+      <!-- Grid de reseñas -->
+      <div *ngIf="resenasFiltradas.length > 0" class="resenas-grid">
+        <div *ngFor="let resena of resenasFiltradas" class="resena-card">
+          <!-- Modo normal -->
+          <div *ngIf="editandoResena?.id !== resena.id" class="resena-content">
+            <div class="resena-header">
+              <div class="pelicula-info">
+                <h4 class="pelicula-titulo">{{ resena.pelicula?.titulo }}</h4>
+                <p class="pelicula-detalles">
+                  🎬 {{ resena.pelicula?.director }} • 🎭 {{ resena.pelicula?.genero }}
+                </p>
+              </div>
+              <div class="resena-rating">
+                {{ getEstrellas(resena.calificacion) }}
+              </div>
+            </div>
+
+            <div class="resena-texto">
+              <p>{{ resena.resena }}</p>
+            </div>
+
+            <div class="resena-footer">
+              <span class="resena-fecha">
+                📅 {{ resena.created_at | date:'dd/MM/yyyy HH:mm' }}
+              </span>
+              <div class="resena-acciones">
+                <button (click)="verPelicula(resena.pelicula?.id)" class="btn-ver">
+                  👁️ Ver Película
+                </button>
+                <button (click)="iniciarEdicion(resena)" class="btn-editar">
+                  ✏️ Editar
+                </button>
+                <button (click)="eliminarResena(resena)" class="btn-eliminar">
+                  🗑️ Eliminar
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modo edición -->
+          <div *ngIf="editandoResena?.id === resena.id" class="resena-edit">
+            <div class="edit-header">
+              <h4>✏️ Editando reseña de "{{ resena.pelicula?.titulo }}"</h4>
+            </div>
+
+            <div class="edit-form">
+              <div class="form-group">
+                <label>Nueva calificación:</label>
+                <select [(ngModel)]="resenaEditada.calificacion" class="form-select">
+                  <option value="1">1⭐ - Terrible</option>
+                  <option value="2">2⭐ - Malo</option>
+                  <option value="3">3⭐ - Regular</option>
+                  <option value="4">4⭐ - Bueno</option>
+                  <option value="5">5⭐ - Excelente</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Nueva reseña:</label>
+                <textarea 
+                  [(ngModel)]="resenaEditada.resena" 
+                  placeholder="Actualiza tu opinión sobre la película..."
+                  class="form-textarea"
+                  rows="4">
+                </textarea>
+              </div>
+
+              <div class="edit-actions">
+                <button (click)="guardarEdicion()" class="btn-primary">
+                  💾 Guardar Cambios
+                </button>
+                <button (click)="cancelarEdicion()" class="btn-secondary">
+                  ❌ Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón flotante para agregar reseña -->
+    <button (click)="navigateTo('/peliculas')" class="btn-flotante" title="Escribir nueva reseña">
+      ➕ Nueva Reseña
+    </button>
+  </main>
+</div>

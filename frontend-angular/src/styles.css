@@ -1,0 +1,118 @@
+/* Estilos globales para tema oscuro */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: #ffffff;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(30, 30, 60, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(128, 0, 128, 0.6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(128, 0, 128, 0.8);
+}
+
+/* Utilidades comunes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, #7c3aed, #a855f7);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(45deg, #6d28d9, #9333ea);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
+}
+
+.btn-secondary {
+  background: rgba(30, 30, 60, 0.8);
+  color: #b19cd9;
+  border: 1px solid rgba(128, 0, 128, 0.3);
+}
+
+.btn-secondary:hover {
+  background: rgba(40, 40, 80, 0.9);
+  border-color: #9333ea;
+}
+
+.card {
+  background: rgba(30, 30, 60, 0.95);
+  border-radius: 15px;
+  padding: 20px;
+  border: 1px solid rgba(128, 0, 128, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.error {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.success {
+  color: #6ee7b7;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+}

@@ -1,0 +1,176 @@
+.register-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.register-card {
+  background: rgba(30, 30, 60, 0.95);
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(128, 0, 128, 0.3);
+  max-width: 450px;
+  width: 100%;
+  backdrop-filter: blur(10px);
+}
+
+.register-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.register-header h1 {
+  color: #b19cd9;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.register-header p {
+  color: #9ca3af;
+  font-size: 1.1rem;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  color: #d1d5db;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+/* Contenedor para el input de contraseña con ojito */
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-container input {
+  width: 100%;
+  padding: 12px 45px 12px 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(128, 0, 128, 0.3);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #b19cd9;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.password-toggle-btn:hover {
+  background: rgba(177, 156, 217, 0.2);
+  transform: scale(1.1);
+}
+
+.form-group input:not(.password-input-container input),
+.form-select {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(15, 15, 35, 0.8);
+  border: 2px solid rgba(128, 0, 128, 0.3);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: #9333ea;
+  box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.1);
+}
+
+.form-group input::placeholder {
+  color: #6b7280;
+}
+
+.form-select {
+  cursor: pointer;
+}
+
+.form-select option {
+  background: rgba(15, 15, 35, 0.9);
+  color: #ffffff;
+}
+
+.error-message {
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  text-align: center;
+}
+
+.register-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(45deg, #7c3aed, #a855f7);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.register-btn:hover:not(:disabled) {
+  background: linear-gradient(45deg, #6d28d9, #9333ea);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
+}
+
+.register-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.register-footer {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.register-footer p {
+  color: #9ca3af;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: #a855f7;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: inherit;
+  transition: color 0.3s ease;
+}
+
+.link-btn:hover {
+  color: #b19cd9;
+}

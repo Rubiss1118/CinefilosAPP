@@ -1,0 +1,218 @@
+<app-navbar></app-navbar>
+
+<div class="peliculas-container">
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Header y búsqueda -->
+    <div class="header-section">
+      <h1>🎬 Galería de Películas</h1>
+      <div class="search-section">
+        <input 
+          type="text" 
+          [(ngModel)]="searchTerm" 
+          (input)="searchPeliculas()"
+          placeholder="🔍 Buscar por título, género o director..."
+          class="search-input">
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="loading">
+      <p>⏳ Cargando películas...</p>
+    </div>
+
+    <!-- Vista de galería de películas -->
+    <div *ngIf="!loading && !selectedPelicula" class="peliculas-grid">
+      <div *ngFor="let pelicula of peliculasFiltradas" class="pelicula-card" (click)="verDetalle(pelicula)">
+        <div class="pelicula-poster">
+          <img [src]="pelicula.url_imagen || '/assets/no-image.jpg'" [alt]="pelicula.titulo">
+          <div class="pelicula-overlay">
+            <span class="ver-detalles">👁️ Ver Detalles</span>
+          </div>
+        </div>
+        
+        <div class="pelicula-info">
+          <h3 class="pelicula-titulo">{{ pelicula.titulo }}</h3>
+          <p class="pelicula-director">🎬 {{ pelicula.director }}</p>
+          <p class="pelicula-genero">🎭 {{ pelicula.genero }}</p>
+          <p class="pelicula-año">📅 {{ pelicula.fecha_estreno | date:'yyyy' }}</p>
+          
+          <div class="pelicula-rating" *ngIf="pelicula.total_resenas > 0">
+            <span class="rating-stars">{{ getEstrellas(getRoundedRating(pelicula.calificacion_promedio)) }}</span>
+            <span class="rating-text">({{ pelicula.total_resenas }} reseñas)</span>
+          </div>
+          <div class="pelicula-rating" *ngIf="pelicula.total_resenas === 0">
+            <span class="no-reviews">Sin reseñas aún</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Paginación -->
+    <div *ngIf="!loading && !selectedPelicula && peliculasFiltradas.length > 0" class="pagination-container">
+      <button 
+        (click)="prevPage()" 
+        [disabled]="currentPage === 1"
+        class="page-btn">
+        ← Anterior
+      </button>
+
+      <div class="page-numbers">
+        <!-- Mostramos siempre los 5 botones de página -->
+        <button 
+          *ngFor="let page of getPaginasVisibles()" 
+          (click)="changePage(page)" 
+          class="page-number-btn"
+          [class.active]="currentPage === page">
+          {{ page }}
+        </button>
+      </div>
+
+      <button 
+        (click)="nextPage()" 
+        [disabled]="currentPage === totalPages"
+        class="page-btn">
+        Siguiente →
+      </button>
+    </div>
+    
+    <!-- Mensaje si no hay películas -->
+    <div *ngIf="!loading && !selectedPelicula && peliculasFiltradas.length === 0" class="no-movies">
+      <h3>😔 No se encontraron películas</h3>
+      <p *ngIf="searchTerm.trim()">No se encontraron películas para "{{searchTerm}}". Intenta con otros términos de búsqueda.</p>
+      <p *ngIf="!searchTerm.trim()">No hay películas disponibles en este momento</p>
+      
+    </div>    <!-- Vista de detalle de película -->
+    <div *ngIf="selectedPelicula" class="pelicula-detalle">
+      <div class="detalle-header">
+        <button (click)="cerrarDetalle()" class="btn-back">
+          ← Volver a la galería
+        </button>
+        <h2>{{ selectedPelicula.titulo }}</h2>
+      </div>
+
+      <div class="detalle-content">
+        <div class="detalle-left">
+          <img [src]="selectedPelicula.url_imagen || '/assets/no-image.jpg'" [alt]="selectedPelicula.titulo" class="detalle-poster">
+          
+          <div class="pelicula-stats">
+            <div class="stat-item">
+              <strong>Director:</strong> {{ selectedPelicula.director }}
+            </div>
+            <div class="stat-item">
+              <strong>Género:</strong> {{ selectedPelicula.genero }}
+            </div>
+            <div class="stat-item">
+              <strong>Fecha de estreno:</strong> {{ selectedPelicula.fecha_estreno | date:'dd/MM/yyyy' }}
+            </div>
+            <div class="stat-item">
+              <strong>Duración:</strong> {{ selectedPelicula.duracion }} minutos
+            </div>
+            <div class="stat-item" *ngIf="selectedPelicula.total_resenas > 0">
+              <strong>Calificación promedio:</strong> 
+              {{ getEstrellas(getRoundedRating(selectedPelicula.calificacion_promedio)) }}
+              {{ selectedPelicula.calificacion_promedio ? (selectedPelicula.calificacion_promedio | number:'1.1-1') : '0.0' }}/5
+            </div>
+            <div class="stat-item">
+              <strong>Total de reseñas:</strong> {{ selectedPelicula.total_resenas }}
+            </div>
+          </div>
+
+          <button 
+            *ngIf="!showResenaForm" 
+            (click)="mostrarFormularioResena()" 
+            class="btn-escribir-resena">
+            ✍️ Escribir Reseña
+          </button>
+        </div>
+
+        <div class="detalle-right">
+          <div class="descripcion-section">
+            <h3>📖 Sinopsis</h3>
+            <p>{{ selectedPelicula.sinopsis }}</p>
+          </div>
+
+          <!-- Formulario de nueva reseña -->
+          <div *ngIf="showResenaForm" class="resena-form">
+            <h3>✍️ Escribir Nueva Reseña</h3>
+            <div class="form-group">
+              <label>Calificación:</label>
+              <select [(ngModel)]="nuevaResena.calificacion" class="form-select">
+                <option value="1">1⭐ - Terrible</option>
+                <option value="2">2⭐ - Malo</option>
+                <option value="3">3⭐ - Regular</option>
+                <option value="4">4⭐ - Bueno</option>
+                <option value="5">5⭐ - Excelente</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Tu reseña:</label>
+              <textarea 
+                [(ngModel)]="nuevaResena.resena" 
+                placeholder="Escribe tu opinión sobre la película..."
+                class="form-textarea"
+                rows="4">
+              </textarea>
+            </div>
+
+            <div class="form-actions">
+              <button (click)="enviarResena()" class="btn-primary">
+                📝 Enviar Reseña
+              </button>
+              <button (click)="showResenaForm = false; resetFormulario()" class="btn-secondary">
+                ❌ Cancelar
+              </button>
+            </div>
+          </div>
+
+          <!-- Lista de reseñas -->
+          <div class="resenas-section">
+            <h3>💬 Reseñas de la Comunidad</h3>
+            
+            <div *ngIf="!selectedPelicula.resenas || selectedPelicula.resenas.length === 0" class="no-reviews-message">
+              <p>🤔 Aún no hay reseñas para esta película.</p>
+              <p>¡Sé el primero en dejar tu opinión!</p>
+            </div>
+
+            <div *ngIf="selectedPelicula.resenas && selectedPelicula.resenas.length > 0" class="resenas-list">
+              <div *ngFor="let resena of selectedPelicula.resenas" class="resena-item">
+                <div class="resena-header">
+                  <div class="resena-user">
+                    <strong>👤 {{ resena.usuario?.name || 'Usuario' }}</strong>
+                    <span class="resena-rating">{{ getEstrellas(resena.calificacion) }}</span>
+                  </div>
+                  <span class="resena-date">
+                    📅 {{ resena.created_at | date:'dd/MM/yyyy' }}
+                  </span>
+                </div>
+                <p class="resena-text">{{ resena.resena }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paginación -->
+    <div *ngIf="!selectedPelicula && totalPages > 1" class="pagination">
+      <button 
+        (click)="changePage(currentPage - 1)" 
+        [disabled]="currentPage === 1"
+        class="page-btn">
+        ← Anterior
+      </button>
+      
+      <span class="page-info">
+        Página {{ currentPage }} de {{ totalPages }}
+      </span>
+      
+      <button 
+        (click)="changePage(currentPage + 1)" 
+        [disabled]="currentPage === totalPages"
+        class="page-btn">
+        Siguiente →
+      </button>
+    </div>
+  </main>
+</div>

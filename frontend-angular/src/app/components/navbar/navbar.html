@@ -1,0 +1,119 @@
+<nav class="navbar" *ngIf="isAuthenticated()">
+  <div class="navbar-container">
+    <!-- Logo/Brand -->
+    <div class="navbar-brand">
+      <a routerLink="/bienvenida" class="brand-link">
+        <span class="brand-icon">🎬</span>
+        <span class="brand-text">CinéfilosApp</span>
+      </a>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <div class="navbar-menu desktop-menu">
+      <div class="navbar-nav">
+        <!-- Rutas para todos los usuarios autenticados -->
+        <a routerLink="/bienvenida" routerLinkActive="active" class="nav-link">
+          <span class="nav-icon">🏠</span>
+          Inicio
+        </a>
+        <a routerLink="/peliculas" routerLinkActive="active" class="nav-link">
+          <span class="nav-icon">🎥</span>
+          Películas
+        </a>
+        <a *ngIf="!isAdmin()" routerLink="/mis-resenas" routerLinkActive="active" class="nav-link">
+          <span class="nav-icon">📝</span>
+          Mis Reseñas
+        </a>
+
+        <!-- Rutas solo para administradores -->
+        <div *ngIf="isAdmin()" class="admin-section">
+          <div class="nav-divider"></div>
+          <span class="nav-section-title">Gestión</span>
+          <a routerLink="/admin/usuarios" routerLinkActive="active" class="nav-link admin-link">
+            <span class="nav-icon">👥</span>
+            Usuarios
+          </a>
+          <a routerLink="/admin/peliculas" routerLinkActive="active" class="nav-link admin-link">
+            <span class="nav-icon">🎬</span>
+            Gestión Películas
+          </a>
+          <a routerLink="/admin/resenas" routerLinkActive="active" class="nav-link admin-link">
+            <span class="nav-icon">📊</span>
+            Todas las Reseñas
+          </a>
+        </div>
+      </div>
+
+      <!-- User Menu -->
+      <div class="navbar-user">
+        <div class="user-info">
+          <span class="user-name">{{ currentUser?.name }}</span>
+          <span class="user-role" [ngClass]="isAdmin() ? 'role-admin' : 'role-cinefilo'">
+            {{ isAdmin() ? 'Administrador' : 'Cinéfilo' }}
+          </span>
+        </div>
+        <button class="logout-btn" (click)="logout()" title="Cerrar Sesión">
+          <span class="logout-icon">🚪</span>
+          Salir
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" (click)="toggleMenu()" [class.active]="isMenuOpen">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div class="mobile-menu" [class.open]="isMenuOpen">
+    <div class="mobile-nav">
+      <!-- User Info Mobile -->
+      <div class="mobile-user-info">
+        <div class="mobile-user-name">{{ currentUser?.name }}</div>
+        <div class="mobile-user-role" [ngClass]="isAdmin() ? 'role-admin' : 'role-cinefilo'">
+          {{ isAdmin() ? 'Administrador' : 'Cinéfilo' }}
+        </div>
+      </div>
+
+      <!-- Navigation Links Mobile -->
+      <a routerLink="/bienvenida" routerLinkActive="active" class="mobile-nav-link" (click)="closeMenu()">
+        <span class="nav-icon">🏠</span>
+        Inicio
+      </a>
+      <a routerLink="/peliculas" routerLinkActive="active" class="mobile-nav-link" (click)="closeMenu()">
+        <span class="nav-icon">🎥</span>
+        Películas
+      </a>
+      <a *ngIf="!isAdmin()" routerLink="/mis-resenas" routerLinkActive="active" class="mobile-nav-link" (click)="closeMenu()">
+        <span class="nav-icon">📝</span>
+        Mis Reseñas
+      </a>
+
+      <!-- Admin Links Mobile -->
+      <div *ngIf="isAdmin()" class="mobile-admin-section">
+        <div class="mobile-section-title">Gestión</div>
+        <a routerLink="/admin/usuarios" routerLinkActive="active" class="mobile-nav-link admin-link" (click)="closeMenu()">
+          <span class="nav-icon">👥</span>
+          Usuarios
+        </a>
+        <a routerLink="/admin/peliculas" routerLinkActive="active" class="mobile-nav-link admin-link" (click)="closeMenu()">
+          <span class="nav-icon">🎬</span>
+          Gestión Películas
+        </a>
+        <a routerLink="/admin/resenas" routerLinkActive="active" class="mobile-nav-link admin-link" (click)="closeMenu()">
+          <span class="nav-icon">📊</span>
+          Todas las Reseñas
+        </a>
+      </div>
+
+      <!-- Logout Mobile -->
+      <button class="mobile-logout-btn" (click)="logout()">
+        <span class="logout-icon">🚪</span>
+        Cerrar Sesión
+      </button>
+    </div>
+  </div>
+</nav>

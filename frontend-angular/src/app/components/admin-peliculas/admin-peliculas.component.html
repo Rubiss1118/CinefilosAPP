@@ -1,0 +1,275 @@
+<div class="admin-container">
+  <!-- Header -->
+  <div class="admin-header">
+    <h1 class="page-title">Gestión de Películas</h1>
+    <button class="btn btn-primary" (click)="openCreateModal()">
+      <i class="icon">🎬</i>
+      Nueva Película
+    </button>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters-section">
+    <div class="filter-group">
+      <label for="searchInput" class="filter-label">Buscar</label>
+      <input 
+        type="text" 
+        id="searchInput"
+        name="searchInput"
+        placeholder="Buscar por título o director..." 
+        [(ngModel)]="filtroBusqueda"
+        (input)="onFiltroChange()"
+        class="search-input">
+    </div>
+    <div class="filter-group">
+      <label for="generoFilter" class="filter-label">Género</label>
+      <select [(ngModel)]="filtroGenero" (change)="onFiltroChange()" class="filter-select"
+              (focus)="onSelectFocus($event)" (blur)="onSelectBlur($event)"
+              id="generoFilter" name="generoFilter">
+        <option value="">Todos los géneros</option>
+        <option *ngFor="let genero of generos" [value]="genero">{{ genero }}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+  <div *ngIf="success" class="alert alert-success">{{ success }}</div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Cargando películas...</p>
+  </div>
+
+  <!-- Table -->
+  <div class="table-container" *ngIf="!loading">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Imagen</th>
+          <th>Título</th>
+          <th>Director</th>
+          <th>Género</th>
+          <th>Estreno</th>
+          <th>Duración</th>
+          <th>Reseñas</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pelicula of peliculasFiltradas" class="table-row">
+          <td>{{ pelicula.id }}</td>
+          <td>
+            <img [src]="pelicula.url_imagen" [alt]="pelicula.titulo" class="movie-thumbnail">
+          </td>
+          <td class="movie-title">{{ pelicula.titulo }}</td>
+          <td>{{ pelicula.director }}</td>
+          <td>
+            <span class="genre-badge">{{ pelicula.genero }}</span>
+          </td>
+          <td>{{ formatDate(pelicula.fecha_estreno) }}</td>
+          <td>
+            <span class="duration">{{ pelicula.duracion }} min</span>
+          </td>
+          <td>
+            <span class="reviews-count">{{ getResenaCount(pelicula) }}</span>
+          </td>
+          <td>
+            <div class="action-buttons">
+              <button 
+                class="btn btn-edit" 
+                (click)="openEditModal(pelicula)"
+                title="Editar">
+                ✏️
+              </button>
+              <button 
+                class="btn btn-delete" 
+                (click)="openDeleteConfirm(pelicula)"
+                title="Eliminar">
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="peliculasFiltradas.length === 0" class="no-data">
+      <div class="no-data-icon">🎬</div>
+      <p>No se encontraron películas</p>
+    </div>
+  </div>
+
+  <!-- Paginación -->
+  <div class="pagination-container" *ngIf="totalPages > 1">
+    <div class="pagination-info">
+      Mostrando {{ ((currentPage - 1) * perPage) + 1 }} - {{ Math.min(currentPage * perPage, totalItems) }} de {{ totalItems }} películas
+    </div>
+    <div class="pagination">
+      <button 
+        class="pagination-btn" 
+        [disabled]="currentPage === 1" 
+        (click)="goToPreviousPage()">
+        ← Anterior
+      </button>
+      
+      <div class="pagination-pages">
+        <button 
+          *ngFor="let page of totalPagesArray" 
+          class="pagination-page" 
+          [class.active]="page === currentPage"
+          (click)="goToPage(page)">
+          {{ page }}
+        </button>
+      </div>
+      
+      <button 
+        class="pagination-btn" 
+        [disabled]="currentPage === totalPages" 
+        (click)="goToNextPage()">
+        Siguiente →
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Create/Edit -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+  <div class="modal-content modal-large" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ modalMode === 'create' ? 'Crear Película' : 'Editar Película' }}</h2>
+      <button class="btn-close" (click)="closeModal()">×</button>
+    </div>
+    
+    <div class="modal-body">
+      <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+      
+      <form (ngSubmit)="submitForm()">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="titulo">Título</label>
+            <input 
+              type="text" 
+              id="titulo"
+              [(ngModel)]="formData.titulo"
+              name="titulo"
+              required
+              class="form-input">
+          </div>
+
+          <div class="form-group">
+            <label for="director">Director</label>
+            <input 
+              type="text" 
+              id="director"
+              [(ngModel)]="formData.director"
+              name="director"
+              required
+              class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="genero">Género</label>
+            <select 
+              id="genero"
+              [(ngModel)]="formData.genero"
+              name="genero"
+              required
+              class="form-select">
+              <option value="">Seleccionar género</option>
+              <option *ngFor="let genero of generos" [value]="genero">{{ genero }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="fecha_estreno">Fecha de Estreno</label>
+            <input 
+              type="date" 
+              id="fecha_estreno"
+              [(ngModel)]="formData.fecha_estreno"
+              name="fecha_estreno"
+              required
+              class="form-input">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="duracion">Duración (minutos)</label>
+            <input 
+              type="number" 
+              id="duracion"
+              [(ngModel)]="formData.duracion"
+              name="duracion"
+              min="1"
+              required
+              class="form-input">
+          </div>
+
+          <div class="form-group">
+            <label for="url_imagen">URL de Imagen</label>
+            <input 
+              type="url" 
+              id="url_imagen"
+              [(ngModel)]="formData.url_imagen"
+              name="url_imagen"
+              placeholder="https://ejemplo.com/imagen.jpg"
+              class="form-input">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="sinopsis">Sinopsis</label>
+          <textarea 
+            id="sinopsis"
+            [(ngModel)]="formData.sinopsis"
+            name="sinopsis"
+            rows="4"
+            required
+            class="form-textarea"
+            placeholder="Descripción de la película..."></textarea>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary" [disabled]="loading">
+            {{ loading ? 'Guardando...' : (modalMode === 'create' ? 'Crear' : 'Actualizar') }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Delete Confirmation -->
+<div class="modal-overlay" *ngIf="showDeleteConfirm" (click)="closeDeleteConfirm()">
+  <div class="modal-content modal-small" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Confirmar Eliminación</h2>
+      <button class="btn-close" (click)="closeDeleteConfirm()">×</button>
+    </div>
+    
+    <div class="modal-body">
+      <div class="delete-warning">
+        <div class="warning-icon">⚠️</div>
+        <p>¿Estás seguro de que quieres eliminar la película <strong>{{ peliculaToDelete?.titulo }}</strong>?</p>
+        <p class="warning-text">Esta acción eliminará también todas las reseñas asociadas y no se puede deshacer.</p>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" (click)="closeDeleteConfirm()">
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-danger" (click)="confirmarEliminar()" [disabled]="loading">
+          {{ loading ? 'Eliminando...' : 'Eliminar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

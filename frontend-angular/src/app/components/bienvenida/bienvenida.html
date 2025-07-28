@@ -1,0 +1,170 @@
+<app-navbar></app-navbar>
+
+<div class="bienvenida-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="welcome-header">
+        <h1 class="hero-title">¡Bienvenido, {{ currentUser?.name }}!</h1>
+        <p class="hero-subtitle">
+          <span *ngIf="currentUser?.rol === 'admin'" class="admin-badge">
+            <i class="icon-crown">👑</i> Panel de Administrador
+          </span>
+          <span *ngIf="currentUser?.rol === 'cinefilo'" class="user-badge">
+            <i class="icon-movie">🎬</i> Tu espacio cinéfilo personal
+          </span>
+        </p>
+      </div>
+      
+      <div class="hero-stats" *ngIf="!isAdmin()">
+        <div class="stat-card">
+          <div class="stat-icon">📊</div>
+          <div class="stat-info">
+            <span class="stat-number">{{ misResenas.length }}</span>
+            <span class="stat-label">Reseñas</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⭐</div>
+          <div class="stat-info">
+            <span class="stat-number">{{ promedioCalificacion }}</span>
+            <span class="stat-label">Promedio</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🏆</div>
+          <div class="stat-info">
+            <span class="stat-number">{{ resenasBuenas.length }}</span>
+            <span class="stat-label">Destacadas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div *ngIf="loading" class="loading-section">
+    <div class="loading-spinner"></div>
+    <p class="loading-text">Cargando tu información...</p>
+  </div>
+
+  <div *ngIf="!loading" class="main-content">
+    <!-- Quick Actions Section -->
+    <section class="quick-actions-section">
+      <h2 class="section-title">Acciones Rápidas</h2>
+      <div class="actions-grid">
+        <button (click)="navigateTo('/peliculas')" class="action-card primary">
+          <div class="action-icon">🎬</div>
+          <div class="action-content">
+            <h3>Explorar Películas</h3>
+            <p>Descubre nuevas películas y comparte tu opinión</p>
+          </div>
+          <div class="action-arrow">→</div>
+        </button>
+        
+        <button *ngIf="!isAdmin()" (click)="navigateTo('/mis-resenas')" class="action-card secondary">
+          <div class="action-icon">📝</div>
+          <div class="action-content">
+            <h3>Mis Reseñas</h3>
+            <p>Revisa y edita tus reseñas anteriores</p>
+          </div>
+          <div class="action-arrow">→</div>
+        </button>
+        
+        <div *ngIf="isAdmin()">
+          <button (click)="navigateTo('/admin/usuarios')" class="action-card admin">
+            <div class="action-icon">⚙️</div>
+            <div class="action-content">
+              <h3>Panel Admin</h3>
+              <p>Gestionar usuarios, películas y reseñas</p>
+            </div>
+            <div class="action-arrow">→</div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Reviews Section -->
+    <section class="featured-section" *ngIf="!isAdmin()">
+      <h2 class="section-title">Tus Reseñas Destacadas</h2>
+      
+      <div *ngIf="resenasBuenas.length === 0" class="empty-state">
+        <div class="empty-icon">⭐</div>
+        <h3>No tienes reseñas destacadas aún</h3>
+        <p>Escribe tu primera reseña con una calificación alta para verla aquí</p>
+        <button (click)="navigateTo('/peliculas')" class="btn-primary">
+          <span class="btn-icon">🎬</span>
+          Explorar Películas
+        </button>
+      </div>
+      
+      <div *ngIf="resenasBuenas.length > 0" class="reviews-grid">
+        <div *ngFor="let resena of resenasBuenas.slice(0, 3)" class="review-card">
+          <div class="review-header">
+            <h4 class="movie-title">{{ resena.pelicula?.titulo }}</h4>
+            <div class="rating-stars">{{ getEstrellas(resena.calificacion) }}</div>
+          </div>
+          <p class="review-text">{{ resena.resena }}</p>
+          <div class="review-footer">
+            <span class="review-date">{{ resena.created_at | date:'dd/MM/yyyy' }}</span>
+            <span class="rating-badge">{{ resena.calificacion }}/5</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Information Panel -->
+    <section class="info-section">
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-header">
+            <div class="info-icon">�</div>
+            <h3>Sistema de Reseñas</h3>
+          </div>
+          <p>Califica películas del 1 al 5 estrellas y comparte tu opinión con la comunidad cinéfila.</p>
+        </div>
+        
+        <div class="info-card">
+          <div class="info-header">
+            <div class="info-icon">⭐</div>
+            <h3>Guía de Calificaciones</h3>
+          </div>
+          <div class="rating-guide">
+            <div class="rating-item">
+              <span class="stars">⭐</span>
+              <span class="description">Terrible</span>
+            </div>
+            <div class="rating-item">
+              <span class="stars">⭐⭐</span>
+              <span class="description">Malo</span>
+            </div>
+            <div class="rating-item">
+              <span class="stars">⭐⭐⭐</span>
+              <span class="description">Regular</span>
+            </div>
+            <div class="rating-item">
+              <span class="stars">⭐⭐⭐⭐</span>
+              <span class="description">Bueno</span>
+            </div>
+            <div class="rating-item">
+              <span class="stars">⭐⭐⭐⭐⭐</span>
+              <span class="description">Excelente</span>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="currentUser?.rol === 'admin'" class="info-card admin-card">
+          <div class="info-header">
+            <div class="info-icon">👑</div>
+            <h3>Privilegios de Administrador</h3>
+          </div>
+          <ul class="admin-privileges">
+            <li>✓ Gestionar usuarios del sistema</li>
+            <li>✓ Administrar catálogo de películas</li>
+            <li>✓ Moderar reseñas y contenido</li>
+            <li>✓ Acceso a estadísticas completas</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

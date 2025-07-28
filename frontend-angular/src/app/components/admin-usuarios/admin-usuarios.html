@@ -1,0 +1,258 @@
+<div class="admin-container">
+  <!-- Header -->
+  <div class="admin-header">
+    <h1 class="page-title">Gestión de Usuarios</h1>
+    <button class="btn btn-primary" (click)="openCreateModal()">
+      <i class="icon">👤</i>
+      Nuevo Usuario
+    </button>
+  </div>
+
+  <!-- Estadísticas -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">👥</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ estadisticas.total_usuarios }}</div>
+        <div class="stat-label">Total Usuarios</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">👑</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ estadisticas.total_admins }}</div>
+        <div class="stat-label">Administradores</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🎬</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ estadisticas.total_cinefilos }}</div>
+        <div class="stat-label">Cinéfilos</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">✨</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ estadisticas.usuarios_recientes }}</div>
+        <div class="stat-label">Nuevos (30 días)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters-section">
+    <div class="filter-group">
+      <input 
+        type="text" 
+        placeholder="Buscar por nombre o email..." 
+        [(ngModel)]="filtroBusqueda"
+        (input)="onFiltroChange()"
+        class="search-input">
+    </div>
+    <div class="filter-group">
+      <select [(ngModel)]="filtroRol" (change)="onFiltroChange()" class="filter-select">
+        <option value="">Todos los roles</option>
+        <option value="admin">Administradores</option>
+        <option value="cinefilo">Cinéfilos</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+  <div *ngIf="success" class="alert alert-success">{{ success }}</div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Cargando usuarios...</p>
+  </div>
+
+  <!-- Table -->
+  <div class="table-container" *ngIf="!loading">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Rol</th>
+          <th>Fecha Registro</th>
+          <th>Reseñas</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuariosFiltrados" class="table-row">
+          <td>{{ usuario.id }}</td>
+          <td>{{ usuario.name }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>
+            <span class="badge" [ngClass]="getRoleBadgeClass(usuario.rol)">
+              {{ usuario.rol === 'admin' ? 'Administrador' : 'Cinéfilo' }}
+            </span>
+          </td>
+          <td>{{ formatDate(usuario.created_at!) }}</td>
+          <td>
+            <span class="reviews-count">{{ usuario.resenas?.length || 0 }}</span>
+          </td>
+          <td>
+            <div class="action-buttons">
+              <button 
+                class="btn btn-edit" 
+                (click)="openEditModal(usuario)"
+                title="Editar">
+                ✏️
+              </button>
+              <button 
+                class="btn btn-delete" 
+                (click)="openDeleteConfirm(usuario)"
+                title="Eliminar">
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="usuariosFiltrados.length === 0" class="no-data">
+      <div class="no-data-icon">👤</div>
+      <p>No se encontraron usuarios</p>
+    </div>
+  </div>
+
+  <!-- Paginación -->
+  <div class="pagination-container" *ngIf="totalPages > 1">
+    <div class="pagination-info">
+      Mostrando {{ ((currentPage - 1) * perPage) + 1 }} - {{ Math.min(currentPage * perPage, totalItems) }} de {{ totalItems }} usuarios
+    </div>
+    <div class="pagination">
+      <button 
+        class="pagination-btn" 
+        [disabled]="currentPage === 1" 
+        (click)="goToPreviousPage()">
+        ← Anterior
+      </button>
+      
+      <div class="pagination-pages">
+        <button 
+          *ngFor="let page of totalPagesArray" 
+          class="pagination-page" 
+          [class.active]="page === currentPage"
+          (click)="goToPage(page)">
+          {{ page }}
+        </button>
+      </div>
+      
+      <button 
+        class="pagination-btn" 
+        [disabled]="currentPage === totalPages" 
+        (click)="goToNextPage()">
+        Siguiente →
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Create/Edit -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ modalMode === 'create' ? 'Crear Usuario' : 'Editar Usuario' }}</h2>
+      <button class="btn-close" (click)="closeModal()">×</button>
+    </div>
+    
+    <div class="modal-body">
+      <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+      
+      <form (ngSubmit)="submitForm()">
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input 
+            type="text" 
+            id="name"
+            [(ngModel)]="formData.name"
+            name="name"
+            required
+            class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            type="email" 
+            id="email"
+            [(ngModel)]="formData.email"
+            name="email"
+            required
+            class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="password">
+            {{ modalMode === 'create' ? 'Contraseña' : 'Nueva Contraseña (opcional)' }}
+          </label>
+          <input 
+            type="password" 
+            id="password"
+            [(ngModel)]="formData.password"
+            name="password"
+            [required]="modalMode === 'create'"
+            class="form-input"
+            [placeholder]="modalMode === 'edit' ? 'Dejar vacío para mantener actual' : ''">
+        </div>
+
+        <div class="form-group">
+          <label for="rol">Rol</label>
+          <select 
+            id="rol"
+            [(ngModel)]="formData.rol"
+            name="rol"
+            required
+            class="form-select">
+            <option value="cinefilo">Cinéfilo</option>
+            <option value="admin">Administrador</option>
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary" [disabled]="loading">
+            {{ loading ? 'Guardando...' : (modalMode === 'create' ? 'Crear' : 'Actualizar') }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Delete Confirmation -->
+<div class="modal-overlay" *ngIf="showDeleteConfirm" (click)="closeDeleteConfirm()">
+  <div class="modal-content modal-small" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Confirmar Eliminación</h2>
+      <button class="btn-close" (click)="closeDeleteConfirm()">×</button>
+    </div>
+    
+    <div class="modal-body">
+      <div class="delete-warning">
+        <div class="warning-icon">⚠️</div>
+        <p>¿Estás seguro de que quieres eliminar al usuario <strong>{{ usuarioToDelete?.name }}</strong>?</p>
+        <p class="warning-text">Esta acción no se puede deshacer.</p>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" (click)="closeDeleteConfirm()">
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-danger" (click)="confirmarEliminar()" [disabled]="loading">
+          {{ loading ? 'Eliminando...' : 'Eliminar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

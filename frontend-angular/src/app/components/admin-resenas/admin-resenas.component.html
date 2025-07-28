@@ -1,0 +1,220 @@
+<div class="admin-container">
+  <!-- Header -->
+  <div class="admin-header">
+    <h1 class="page-title">Gestión de Reseñas</h1>
+  </div>
+
+  <!-- Estadísticas rápidas -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">📝</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ resenas.length }}</div>
+        <div class="stat-label">Total Reseñas</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">⭐</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ getPromedioCalificacion() }}</div>
+        <div class="stat-label">Promedio</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🎬</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ peliculas.length }}</div>
+        <div class="stat-label">Películas</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">👥</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ usuarios.length }}</div>
+        <div class="stat-label">Usuarios</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters-section">
+    <div class="filter-group">
+      <label for="calificacionFilter" class="filter-label">Calificación</label>
+      <select [(ngModel)]="filtroCalificacion" (change)="onFiltroChange()" class="filter-select"
+              id="calificacionFilter" name="calificacionFilter">
+        <option value="">Todas las calificaciones</option>
+        <option value="5">⭐⭐⭐⭐⭐ (5 estrellas)</option>
+        <option value="4">⭐⭐⭐⭐☆ (4 estrellas)</option>
+        <option value="3">⭐⭐⭐☆☆ (3 estrellas)</option>
+        <option value="2">⭐⭐☆☆☆ (2 estrellas)</option>
+        <option value="1">⭐☆☆☆☆ (1 estrella)</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="peliculaFilter" class="filter-label">Película</label>
+      <select [(ngModel)]="filtroPelicula" (change)="onFiltroChange()" class="filter-select" 
+              (focus)="onSelectFocus($event)" (blur)="onSelectBlur($event)" 
+              id="peliculaFilter" name="peliculaFilter">
+        <option value="">Todas las películas</option>
+        <option *ngFor="let pelicula of peliculas" [value]="pelicula">{{ pelicula }}</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="usuarioFilter" class="filter-label">Usuario</label>
+      <select [(ngModel)]="filtroUsuario" (change)="onFiltroChange()" class="filter-select"
+              (focus)="onSelectFocus($event)" (blur)="onSelectBlur($event)"
+              id="usuarioFilter" name="usuarioFilter">
+        <option value="">Todos los usuarios</option>
+        <option *ngFor="let usuario of usuarios" [value]="usuario">{{ usuario }}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+  <div *ngIf="success" class="alert alert-success">{{ success }}</div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Cargando reseñas...</p>
+  </div>
+
+  <!-- Table -->
+  <div class="table-container" *ngIf="!loading">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Usuario</th>
+          <th>Película</th>
+          <th>Calificación</th>
+          <th>Comentario</th>
+          <th>Fecha</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let resena of resenasFiltradas" class="table-row">
+          <td>{{ resena.id }}</td>
+          <td>
+            <div class="user-info">
+              <div class="user-name">{{ resena.usuario?.name }}</div>
+              <span class="badge" [ngClass]="getRoleBadgeClass(resena.usuario?.rol || '')">
+                {{ resena.usuario?.rol === 'admin' ? 'Admin' : 'Cinéfilo' }}
+              </span>
+            </div>
+          </td>
+          <td class="movie-info">
+            <div class="movie-container">
+              <img [src]="resena.pelicula?.url_imagen" [alt]="resena.pelicula?.titulo" class="movie-thumbnail">
+              <div class="movie-details">
+                <div class="movie-title">{{ resena.pelicula?.titulo }}</div>
+                <div class="movie-director">{{ resena.pelicula?.director }}</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="rating">
+              <span class="stars">{{ getStars(resena.calificacion) }}</span>
+              <span class="rating-number">({{ resena.calificacion }}/5)</span>
+            </div>
+          </td>
+          <td class="comment-cell">
+            <div class="comment-preview" [title]="resena.resena">
+              {{ truncateComment(resena.resena, 80) }}
+            </div>
+          </td>
+          <td>{{ formatDate(resena.created_at!) }}</td>
+          <td>
+            <div class="action-buttons">
+              <button 
+                class="btn btn-censura" 
+                (click)="censurarResena(resena)"
+                title="Censurar palabras inapropiadas">
+                🚫
+              </button>
+              <button 
+                class="btn btn-delete" 
+                (click)="openDeleteConfirm(resena)"
+                title="Eliminar">
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="resenasFiltradas.length === 0" class="no-data">
+      <div class="no-data-icon">📝</div>
+      <p>No se encontraron reseñas</p>
+    </div>
+  </div>
+
+  <!-- Paginación -->
+  <div class="pagination-container" *ngIf="totalPages > 1">
+    <div class="pagination-info">
+      Mostrando {{ ((currentPage - 1) * itemsPerPage) + 1 }} - {{ Math.min(currentPage * itemsPerPage, totalItems) }} de {{ totalItems }} reseñas
+    </div>
+    <div class="pagination">
+      <button 
+        class="pagination-btn" 
+        [disabled]="currentPage === 1" 
+        (click)="paginaAnterior()">
+        ← Anterior
+      </button>
+      
+      <div class="pagination-pages">
+        <button 
+          *ngFor="let page of getPaginasVisibles()" 
+          class="pagination-page" 
+          [class.active]="page === currentPage"
+          (click)="irAPagina(page)">
+          {{ page }}
+        </button>
+      </div>
+      
+      <button 
+        class="pagination-btn" 
+        [disabled]="currentPage === totalPages" 
+        (click)="paginaSiguiente()">
+        Siguiente →
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal Delete Confirmation -->
+<div class="modal-overlay" *ngIf="showDeleteConfirm" (click)="closeDeleteConfirm()">
+  <div class="modal-content modal-small" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Confirmar Eliminación</h2>
+      <button class="btn-close" (click)="closeDeleteConfirm()">×</button>
+    </div>
+    
+    <div class="modal-body">
+      <div class="delete-warning">
+        <div class="warning-icon">⚠️</div>
+        <p>¿Estás seguro de que quieres eliminar esta reseña?</p>
+        <div class="delete-context" *ngIf="resenaToDelete">
+          <p><strong>Película:</strong> {{ resenaToDelete.pelicula?.titulo }}</p>
+          <p><strong>Usuario:</strong> {{ resenaToDelete.usuario?.name }}</p>
+          <p><strong>Calificación:</strong> {{ getStars(resenaToDelete.calificacion) }}</p>
+        </div>
+        <p class="warning-text">Esta acción no se puede deshacer.</p>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" (click)="closeDeleteConfirm()">
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-danger" (click)="confirmarEliminar()" [disabled]="loading">
+          {{ loading ? 'Eliminando...' : 'Eliminar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

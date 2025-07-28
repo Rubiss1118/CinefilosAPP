@@ -1,13 +1,8 @@
 
 INSTITUTO TECNOLÓGICO DE OAXACA
-
 Departamento de Ingeniería en Sistemas Computacionales
-
 Materia:PROGRAMACION WEB
-
 “API DE RESEÑAS DE PELICULAS ”
-# 🎬 CinefilosAPP
-
 Profesor: Martinez Nieto Adelina Equipo: 
 MORALES OSORIO RUBI ESMERALDA ROL: FRONTEND
 JIMENEZ CASTILLEJOS FABIAN DE JESUS ROL: BACKEND
@@ -15,6 +10,7 @@ JIMENEZ CASTILLEJOS FABIAN DE JESUS ROL: BACKEND
 Grupo: VSI Oaxaca de juarez a 28 de julio de 2025
 
 Tipo de sistema: Sistema Web.
+# 🎬 CinefilosAPP
 
 Una aplicación web completa para cinéfilos que permite explorar películas, escribir reseñas y gestionar contenido cinematográfico.
 
@@ -265,44 +261,6 @@ app/
 - 📊 **Generar reporte** - Estadísticas exportables
 - ⚙️ **Configuración** - Ajustes del sistema
 
-## 👤 Experiencia del Usuario Final
-
-### 🎬 Catálogo de Películas (Usuario)
-
-#### Navegación y Búsqueda:
-- **Grid responsivo** con cards atractivas de películas
-- **Búsqueda inteligente** con sugerencias automáticas
-- **Filtros múltiples** por género, año, calificación
-- **Ordenamiento** por popularidad, fecha, calificación
-- **Paginación infinita** para mejor UX
-
-#### Información por Película:
-- 🎭 **Portada en alta calidad** con lazy loading
-- ⭐ **Calificación promedio** calculada automáticamente
-- 📝 **Sinopsis completa** con expand/collapse
-- 🎬 **Información técnica** (director, año, género)
-- 💬 **Contador de reseñas** con link directo
-
-*[Espacio reservado para imagen del catálogo público de películas]*
-
-### ⭐ Sistema de Reseñas (Usuario)
-
-#### Crear Reseña:
-- **Calificación por estrellas** interactiva (1-5)
-- **Editor de texto** enriquecido para comentarios
-- **Vista previa** antes de publicar
-- **Validación en tiempo real** de contenido
-- **Guardado automático** de borradores
-
-#### Visualización de Reseñas:
-- **Layout tipo tarjetas** con información del autor
-- **Sistema de likes** y valoración de reseñas
-- **Ordenamiento** por fecha, calificación o popularidad
-- **Respuestas anidadas** entre usuarios
-- **Reportar contenido** inapropiado
-
-*[Espacio reservado para imagen del sistema de reseñas de usuarios]*
-
 ### Backend
 - **Laravel 11**
 - PHP 8.2+
@@ -326,7 +284,6 @@ app/
 - **faker**: Generación de datos de prueba
 - **phpunit**: Testing unitario
 
-*[Espacio reservado para imagen del stack tecnológico completo]*
 
 ## 🧪 Testing y Calidad
 
@@ -341,54 +298,6 @@ app/
 - **Database Testing**: Pruebas con base de datos en memoria
 - **API Testing**: Validación completa de endpoints
 - **Security Testing**: Pruebas de vulnerabilidades
-
-### 📊 Métricas de Calidad
-- **Code Coverage**: > 80%
-- **Performance**: Lighthouse Score > 90
-- **Accessibility**: WCAG 2.1 AA compliance
-- **SEO**: Meta tags y estructura optimizada
-
-*[Espacio reservado para imagen de reportes de testing]*
-
-## 🚀 Despliegue y DevOps
-
-### 🌐 Opciones de Hosting
-
-#### Backend (API Laravel)
-- **Heroku**: Deploy con Git, escalable
-- **Railway**: CI/CD automático, Docker
-- **DigitalOcean**: App Platform, alta disponibilidad
-- **AWS**: EC2 + RDS para producción enterprise
-
-#### Frontend (Angular)
-- **Vercel**: Deploy automático, CDN global
-- **Netlify**: CI/CD integrado, forms handling
-- **Firebase Hosting**: Google Cloud, SSL gratuito
-- **GitHub Pages**: Para demos y documentación
-
-### 🔄 CI/CD Pipeline
-- **GitHub Actions**: Automatización de tests y deploy
-- **Docker**: Containerización para consistencia
-- **Environment Variables**: Configuración segura
-- **Database Migrations**: Deploy automático de esquemas
-
-*[Espacio reservado para imagen del pipeline de deployment]*
-
-## 📈 Métricas y Monitoreo
-
-### 📊 Analytics Implementados
-- **Google Analytics**: Tracking de usuarios y comportamiento
-- **Performance Monitoring**: Core Web Vitals
-- **Error Tracking**: Logs centralizados de errores
-- **Usage Metrics**: Estadísticas de uso de features
-
-### 🔍 Logs y Debugging
-- **Laravel Telescope**: Debugging de queries y requests
-- **Browser DevTools**: Debugging frontend en desarrollo
-- **Error Reporting**: Notificaciones automáticas de errores
-- **Performance Profiling**: Análisis de rendimiento
-
-*[Espacio reservado para imagen del dashboard de métricas]*
 
 ## 📦 Estructura Completa del Proyecto
 
@@ -509,76 +418,6 @@ CinefilosAPP/
 └── 📄 docker-compose.yml           # Configuración Docker
 ```
 
-*[Espacio reservado para imagen de la estructura del proyecto en VS Code]*
-
-## 🔧 Instalación y Configuración
-
-### Prerrequisitos
-- Node.js 18+
-- PHP 8.2+
-- Composer
-- MySQL
-
-### Backend (Laravel)
-
-1. **Instalar dependencias:**
-```bash
-cd backend-laravel
-composer install
-```
-
-2. **Configurar entorno:**
-```bash
-cp .env.example .env
-php artisan key:generate
-```
-
-3. **Configurar base de datos en `.env`:**
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=cinefilos_app
-DB_USERNAME=tu_usuario
-DB_PASSWORD=tu_password
-```
-
-4. **Ejecutar migraciones:**
-```bash
-php artisan migrate --seed
-```
-
-5. **Iniciar servidor:**
-```bash
-php artisan serve
-```
-
-### Frontend (Angular)
-
-1. **Instalar dependencias:**
-```bash
-cd frontend-angular
-npm install
-```
-
-2. **Configurar API URL en `environment.ts`:**
-```typescript
-export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:8000/api'
-};
-```
-
-3. **Iniciar aplicación:**
-```bash
-ng serve
-```
-
-## 🌐 Acceso a la Aplicación
-
-- **Frontend**: http://localhost:4200
-- **Backend API**: http://localhost:8000/api
-- **Admin Panel**: http://localhost:4200/admin
 
 ### Credenciales por defecto:
 - **Admin**: admin@cinefilos.com / password
@@ -595,8 +434,6 @@ El sistema de películas permite a los usuarios explorar un catálogo completo c
 - **Subida de imágenes** de portada con validación
 - **Filtros múltiples** para encontrar contenido específico
 
-
-
 ### ⭐ Sistema de Reseñas
 Los usuarios pueden interactuar y compartir opiniones mediante:
 
@@ -605,8 +442,6 @@ Los usuarios pueden interactuar y compartir opiniones mediante:
 - **Moderación automática** de palabras inapropiadas
 - **Historial de reseñas** por usuario
 - **Censura inteligente** que protege el contenido
-
-*[Espacio reservado para imagen del sistema de reseñas]*
 
 ## 👑 Panel de Administración
 
@@ -620,8 +455,6 @@ El dashboard ofrece una vista general completa con:
 - **Métricas de películas** más populares
 - **Resumen de reseñas** pendientes de moderación
 - **Alertas del sistema** y notificaciones importantes
-
-*[Espacio reservado para imagen del dashboard de administración]*
 
 ### 🎭 Gestión de Películas (Admin)
 Los administradores tienen control total sobre el catálogo:
@@ -640,8 +473,6 @@ Los administradores tienen control total sobre el catálogo:
 - ✅ **Control de visibilidad**: Activar/desactivar películas del catálogo público
 - ✅ **Búsqueda administrativa**: Filtros por estado, género, año y popularidad
 
-*[Espacio reservado para imagen de gestión de películas]*
-
 ### 👥 Gestión de Usuarios (Admin)
 Sistema completo para administrar la comunidad:
 
@@ -658,8 +489,6 @@ Sistema completo para administrar la comunidad:
 - ✅ **Gestión de roles**: Asignar permisos específicos
 - ✅ **Suspender usuarios**: Sistema de bans temporales y permanentes
 - ✅ **Historial de reseñas**: Ver todas las reseñas de un usuario específico
-
-*[Espacio reservado para imagen de gestión de usuarios]*
 
 ### 📝 Moderación de Reseñas (Admin)
 Herramientas avanzadas para mantener la calidad del contenido:
@@ -678,7 +507,6 @@ Herramientas avanzadas para mantener la calidad del contenido:
 - ✅ **Sistema de reportes**: Los usuarios pueden reportar contenido
 - ✅ **Estadísticas de moderación**: Métricas de contenido censurado
 
-*[Espacio reservado para imagen de moderación de reseñas]*
 
 ## 👤 Experiencia del Usuario
 
@@ -693,16 +521,60 @@ Sistema seguro y user-friendly:
 - Olvidaste tu contraseña?
 - <img width="1919" height="998" alt="image" src="https://github.com/user-attachments/assets/66d93304-34f0-4538-995f-7760243e724f" />
 <img width="1919" height="1021" alt="image" src="https://github.com/user-attachments/assets/42ad487d-64f1-4e62-ae45-0940d75b7d87" />
+<img width="748" height="777" alt="image" src="https://github.com/user-attachments/assets/f82cbf25-eae5-43c7-a7d9-017b0d418e9c" />
+<img width="711" height="789" alt="image" src="https://github.com/user-attachments/assets/be7261d2-4328-41bc-8e68-565349b3ad78" />
+<img width="702" height="1600" alt="image" src="https://github.com/user-attachments/assets/360f2a67-6e9b-4b2c-8f89-aee54da2eb4f" />
 
-- 
-- **Perfiles personalizables** con información del usuario
-- **Gestión de sesiones** con tokens seguros
+<img width="1919" height="1024" alt="image" src="https://github.com/user-attachments/assets/a2e20644-0db6-4851-b29c-6aaca6ec1102" />
+-Verificar que si se cambio la contarseña
+<img width="617" height="858" alt="image" src="https://github.com/user-attachments/assets/76d44e69-0657-48b3-b105-7843cec68706" />
+<img width="545" height="605" alt="image" src="https://github.com/user-attachments/assets/d508a34b-6a24-4108-bedd-29770e69f0c5" />
+
+## registro de usuario
+-Se pueden registrar un usuario nuevo con nombre correo y contraseña
+<img width="737" height="876" alt="image" src="https://github.com/user-attachments/assets/7957be0e-ec65-4034-8abf-e81471152cd9" />
+-Redirige a la cuenta creada
+<img width="1919" height="783" alt="image" src="https://github.com/user-attachments/assets/0f1c898b-d9a0-47d2-a99b-42eac1def50c" />
+-Usuario creado en la base de datos 
 
 
+## 👤 Experiencia del Usuario Final
+
+### 🎬 Catálogo de Películas (Usuario)
+
+#### Navegación y Búsqueda:
+- **Grid responsivo** con cards atractivas de películas
+- **Búsqueda inteligente** con sugerencias automáticas
+- **Filtros múltiples** por género, año, calificación
+- **Ordenamiento** por popularidad, fecha, calificación
+- **Paginación infinita** para mejor UX
+
+#### Información por Película:
+- 🎭 **Portada en alta calidad** con lazy loading
+- ⭐ **Calificación promedio** calculada automáticamente
+- 📝 **Sinopsis completa** con expand/collapse
+- 🎬 **Información técnica** (director, año, género)
+- 💬 **Contador de reseñas** con link directo
+
+### ⭐ Sistema de Reseñas (Usuario)
+
+#### Crear Reseña:
+- **Calificación por estrellas** interactiva (1-5)
+- **Editor de texto** enriquecido para comentarios
+- **Vista previa** antes de publicar
+- **Validación en tiempo real** de contenido
+- **Guardado automático** de borradores
+
+#### Visualización de Reseñas:
+- **Layout tipo tarjetas** con información del autor
+- **Sistema de likes** y valoración de reseñas
+- **Ordenamiento** por fecha, calificación o popularidad
+- **Respuestas anidadas** entre usuarios
+- **Reportar contenido** inapropiado
 
 ### 🎯 Interfaz de Usuario
 Diseño moderno y responsivo:
-
+<img width="1919" height="1021" alt="image" src="https://github.com/user-attachments/assets/ac1307c1-578f-42dd-b1f8-bcd90bb9bbb4" />
 - **Navegación intuitiva** con menús organizados
 - **Diseño responsivo** que se adapta a todos los dispositivos
 - **Búsqueda inteligente** con sugerencias automáticas
@@ -779,7 +651,75 @@ macOS: 10.15 Catalina o superior
 Linux: Ubuntu 18.04+ / Debian 10+ / CentOS 8+
 📋 Software Requerido
 🟢 Node.js y npm
+## 🔧 Instalación y Configuración
 
+### Prerrequisitos
+- Node.js 18+
+- PHP 8.2+
+- Composer
+- MySQL
+
+### Backend (Laravel)
+
+1. **Instalar dependencias:**
+```bash
+cd backend-laravel
+composer install
+```
+
+2. **Configurar entorno:**
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+3. **Configurar base de datos en `.env`:**
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=cinefilos_app
+DB_USERNAME=tu_usuario
+DB_PASSWORD=tu_password
+```
+
+4. **Ejecutar migraciones:**
+```bash
+php artisan migrate --seed
+```
+
+5. **Iniciar servidor:**
+```bash
+php artisan serve
+```
+
+### Frontend (Angular)
+
+1. **Instalar dependencias:**
+```bash
+cd frontend-angular
+npm install
+```
+
+2. **Configurar API URL en `environment.ts`:**
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:8000/api'
+};
+```
+
+3. **Iniciar aplicación:**
+```bash
+ng serve
+```
+
+## 🌐 Acceso a la Aplicación
+
+- **Frontend**: http://localhost:4200
+- **Backend API**: http://localhost:8000/api
+- **Admin Panel**: http://localhost:4200/admin
+- 
 [GitHub](https://github.com/Rubiss1118)
 
 

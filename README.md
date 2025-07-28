@@ -1,4 +1,20 @@
+
+INSTITUTO TECNOLÓGICO DE OAXACA
+
+Departamento de Ingeniería en Sistemas Computacionales
+
+Materia:PROGRAMACION WEB
+
+“API DE RESEÑAS DE PELICULAS ”
 # 🎬 CinefilosAPP
+
+Profesor: Martinez Nieto Adelina Equipo: 
+MORALES OSORIO RUBI ESMERALDA ROL: FRONTEND
+JIMENEZ CASTILLEJOS FABIAN DE JESUS ROL: BACKEND
+
+Grupo: VSI Oaxaca de juarez a 28 de julio de 2025
+
+Tipo de sistema: Sistema Web.
 
 Una aplicación web completa para cinéfilos que permite explorar películas, escribir reseñas y gestionar contenido cinematográfico.
 
@@ -579,7 +595,7 @@ El sistema de películas permite a los usuarios explorar un catálogo completo c
 - **Subida de imágenes** de portada con validación
 - **Filtros múltiples** para encontrar contenido específico
 
-*[Espacio reservado para imagen del catálogo de películas]*
+
 
 ### ⭐ Sistema de Reseñas
 Los usuarios pueden interactuar y compartir opiniones mediante:
@@ -670,12 +686,19 @@ Herramientas avanzadas para mantener la calidad del contenido:
 Sistema seguro y user-friendly:
 
 - **Registro simple** con validación en tiempo real
+- <img width="609" height="866" alt="image" src="https://github.com/user-attachments/assets/4ba90af5-6d45-48b8-a52a-49b3f28555ed" />
+
 - **Login seguro** con Laravel Sanctum
 - **Recuperación de contraseña** por email
+- Olvidaste tu contraseña?
+- <img width="1919" height="998" alt="image" src="https://github.com/user-attachments/assets/66d93304-34f0-4538-995f-7760243e724f" />
+<img width="1919" height="1021" alt="image" src="https://github.com/user-attachments/assets/42ad487d-64f1-4e62-ae45-0940d75b7d87" />
+
+- 
 - **Perfiles personalizables** con información del usuario
 - **Gestión de sesiones** con tokens seguros
 
-*[Espacio reservado para imagen del sistema de login]*
+
 
 ### 🎯 Interfaz de Usuario
 Diseño moderno y responsivo:
@@ -685,19 +708,36 @@ Diseño moderno y responsivo:
 - **Búsqueda inteligente** con sugerencias automáticas
 - **Filtros avanzados** para encontrar contenido específico
 - **Experiencia fluida** sin recargas de página
-
-*[Espacio reservado para imagen de la interfaz principal]*
+<img width="1919" height="1012" alt="image" src="https://github.com/user-attachments/assets/087b2f9c-4e50-4611-9fb6-ab69a38b2649" />
 
 ### 📊 Dashboard de Usuario
 Cada usuario tiene su propio espacio personal:
+<img width="1919" height="173" alt="image" src="https://github.com/user-attachments/assets/7d95417e-335a-400a-b463-4d2c7bc2191a" />
 
-- **Mis reseñas** con historial completo
-- **Películas favoritas** marcadas por el usuario
-- **Estadísticas personales** de actividad
-- **Configuración de perfil** editable
-- **Notificaciones** de actividad relevante
+- **Mis reseñas** 
+- <img width="1919" height="1019" alt="image" src="https://github.com/user-attachments/assets/612cdff4-10f7-4dba-8d1b-6e4d5af4b92c" />
+-Filtrado para buscar reseñas
+<img width="1918" height="1017" alt="image" src="https://github.com/user-attachments/assets/0fdc07e2-f55b-4dd0-b2fb-9116cdfc20d4" />
+-Ver galeria de peliculas para hacer una reseña
+<img width="1917" height="1010" alt="image" src="https://github.com/user-attachments/assets/c7616944-edfd-4e8b-b70d-6228d5c9ca45" />
+-Ver detalles de la pelicula(reseñas de la comunidad y apartada de añadir tu propia reseña
+<img width="1919" height="1009" alt="image" src="https://github.com/user-attachments/assets/adf58ad1-bfd2-45c8-a357-784fe977aff0" />
+<img width="1918" height="1003" alt="image" src="https://github.com/user-attachments/assets/578e032b-b51b-4235-9c3b-da01c547dffc" />
+-RESEÑA
+<img width="1234" height="699" alt="image" src="https://github.com/user-attachments/assets/d1f4d32a-13d7-4aa6-aa66-71df543c6d74" />
+-Mensaje y visualizacion de la reseña
+<img width="1198" height="640" alt="image" src="https://github.com/user-attachments/assets/6fbd3741-f71c-430d-9536-78a654caa58f" />
+<img width="1178" height="276" alt="image" src="https://github.com/user-attachments/assets/7952cb74-3300-4253-80b6-a13a31f9878e" />
+-Editar o eliminar las reseña como usuario
+<img width="1910" height="867" alt="image" src="https://github.com/user-attachments/assets/9cb37059-2b2e-4c4d-a19b-43a3e0fd4096" />
+  Notificacion de eliminacion
+  <img width="1919" height="974" alt="image" src="https://github.com/user-attachments/assets/1b158e39-4a3b-41c3-bfca-f65cf79103ff" />
+<img width="1407" height="989" alt="image" src="https://github.com/user-attachments/assets/c6a0e7de-e9f2-4e87-8b18-5a708e601c98" />
+-Editar reseña
+<img width="1919" height="1003" alt="image" src="https://github.com/user-attachments/assets/beda0222-f109-4571-91b4-6a925904f136" />
+-Mnesaje de reseña actualizada
+ <img width="1915" height="1014" alt="image" src="https://github.com/user-attachments/assets/8b089b7e-d434-4ccb-9b29-308622848f18" />
 
-*[Espacio reservado para imagen del dashboard de usuario]*
 
 ## 🔐 Seguridad
 
@@ -706,18 +746,6 @@ Cada usuario tiene su propio espacio personal:
 - Protección CORS configurada
 - Sanitización de inputs
 - Sistema de censura automática
-
-## 🚀 Despliegue
-
-### Backend (Opciones recomendadas)
-- **Railway**: Deploy automático desde GitHub
-- **Heroku**: Plataforma tradicional
-- **DigitalOcean**: App Platform
-
-### Frontend (Opciones recomendadas)
-- **Vercel**: Deploy automático desde GitHub
-- **Netlify**: CI/CD integrado
-- **Firebase Hosting**: Escalable y rápido
 
 ## 📄 API Endpoints
 
@@ -739,15 +767,18 @@ Cada usuario tiene su propio espacio personal:
 - `PUT /api/resenas/{id}` - Actualizar reseña
 - `DELETE /api/resenas/{id}` - Eliminar reseña
 
-## 🤝 Contribución
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
-
+### Requisitos del Sistema
+💻 Hardware Mínimo
+RAM: 8 GB (recomendado 16 GB)
+Almacenamiento: 5 GB libres
+Procesador: Intel i5 / AMD Ryzen 5 o superior
+Conexión a Internet: Banda ancha estable
+🖥️ Sistema Operativo
+Windows: 10/11 (64-bit)
+macOS: 10.15 Catalina o superior
+Linux: Ubuntu 18.04+ / Debian 10+ / CentOS 8+
+📋 Software Requerido
+🟢 Node.js y npm
 
 [GitHub](https://github.com/Rubiss1118)
 

@@ -24,6 +24,110 @@ CinefilosAPP es una plataforma web que combina:
 - 📝 Moderación de reseñas
 - 🛡️ Sistema de censura automática
 
+## 🏗️ Arquitectura Técnica
+
+### 🎨 Frontend Angular - Componentes Principales
+
+#### 📁 Estructura de Componentes
+```
+src/app/
+├── components/
+│   ├── admin/
+│   │   ├── admin-dashboard/          # Dashboard principal admin
+│   │   ├── admin-peliculas/          # Gestión de películas
+│   │   ├── admin-usuarios/           # Gestión de usuarios
+│   │   └── admin-resenas/            # Moderación de reseñas
+│   ├── auth/
+│   │   ├── login/                    # Componente de login
+│   │   ├── register/                 # Componente de registro
+│   │   └── profile/                  # Perfil de usuario
+│   ├── peliculas/
+│   │   ├── lista-peliculas/          # Catálogo público
+│   │   ├── detalle-pelicula/         # Vista detallada
+│   │   └── formulario-pelicula/      # Formulario de edición
+│   └── resenas/
+│       ├── lista-resenas/            # Lista de reseñas
+│       ├── formulario-resena/        # Crear/editar reseña
+│       └── resena-card/              # Tarjeta de reseña
+├── services/
+│   ├── auth.service.ts               # Autenticación
+│   ├── pelicula.service.ts           # API de películas
+│   ├── resena.service.ts             # API de reseñas
+│   └── admin.service.ts              # API de administración
+└── models/
+    ├── user.model.ts                 # Modelo de usuario
+    ├── pelicula.model.ts             # Modelo de película
+    └── resena.model.ts               # Modelo de reseña
+```
+
+#### 🔧 Componentes Administrativos Detallados
+
+**Admin Dashboard Component:**
+- Widgets de estadísticas en tiempo real
+- Gráficos de actividad con Chart.js
+- Accesos rápidos a secciones principales
+- Notificaciones y alertas del sistema
+
+*[Espacio reservado para imagen de la arquitectura de componentes]*
+
+**Admin Películas Component:**
+- Tabla responsiva con paginación
+- Formularios reactivos con validación
+- Subida de archivos con drag & drop
+- Modal de confirmación para eliminaciones
+- Filtros avanzados y búsqueda en tiempo real
+
+**Admin Usuarios Component:**
+- Sistema de roles con dropdowns
+- Gestión de permisos granular
+- Historial de actividad por usuario
+- Bulk actions para múltiples usuarios
+
+**Admin Reseñas Component:**
+- Cola de moderación con estados
+- Preview de contenido censurado
+- Sistema de aprobación/rechazo masivo
+- Filtros por estado de moderación
+
+### ⚙️ Backend Laravel - Arquitectura API
+
+#### 📁 Estructura del Backend
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── AuthController.php        # Autenticación
+│   │   ├── PeliculaController.php    # CRUD películas
+│   │   ├── ResenaController.php      # CRUD reseñas
+│   │   └── AdminController.php       # Funciones admin
+│   ├── Middleware/
+│   │   ├── AdminMiddleware.php       # Verificación admin
+│   │   └── CorsMiddleware.php        # Configuración CORS
+│   └── Requests/
+│       ├── StorePeliculaRequest.php  # Validación películas
+│       └── StoreResenaRequest.php    # Validación reseñas
+├── Models/
+│   ├── User.php                      # Modelo usuario
+│   ├── Pelicula.php                  # Modelo película
+│   └── Resena.php                    # Modelo reseña
+├── Services/
+│   ├── EmailService.php              # Servicio de emails
+│   ├── ImageService.php              # Gestión de imágenes
+│   └── CensuraService.php            # Sistema de censura
+└── database/
+    ├── migrations/                   # Migraciones BD
+    └── seeders/                      # Datos de prueba
+```
+
+#### 🛡️ Características de Seguridad
+- **Laravel Sanctum**: Autenticación con tokens
+- **Middleware personalizado**: Verificación de roles
+- **Validación robusta**: Request classes específicas
+- **CORS configurado**: Para comunicación frontend-backend
+- **Sanitización de datos**: Prevención de inyecciones
+
+*[Espacio reservado para imagen de la arquitectura del backend]*
+
 ## 🛠️ Tecnologías Utilizadas
 
 ### Frontend
@@ -32,34 +136,355 @@ CinefilosAPP es una plataforma web que combina:
 - HTML5/CSS3
 - Bootstrap/CSS Grid
 
+## 🔍 Características Detalladas por Componente
+
+### 🎬 Componente Gestión de Películas (Admin)
+
+#### Funcionalidades Principales:
+- **Lista dinámica** con paginación de 10 elementos por página
+- **Búsqueda en tiempo real** por título, director o género
+- **Filtros avanzados** por año, calificación y estado
+- **Ordenamiento** por fecha, popularidad o calificación
+- **Acciones en lote** para múltiples películas
+
+#### Características Técnicas:
+- **Formularios reactivos** con validación en tiempo real
+- **Subida de imágenes** con preview inmediato
+- **Validación de tipos** de archivo (JPG, PNG, WebP)
+- **Compresión automática** de imágenes
+- **Estados de loading** durante operaciones
+
+#### Validaciones Implementadas:
+- ✅ **Título**: Mínimo 2 caracteres, máximo 100
+- ✅ **Sinopsis**: Máximo 1000 caracteres
+- ✅ **Director**: Mínimo 2 caracteres, máximo 50
+- ✅ **Año**: Entre 1900 y año actual + 2
+- ✅ **Género**: Selección de lista predefinida
+- ✅ **Imagen**: Máximo 2MB, formatos específicos
+
+*[Espacio reservado para imagen del formulario de películas con validaciones]*
+
+### 👥 Componente Gestión de Usuarios (Admin)
+
+#### Panel de Usuarios:
+- **Tabla responsiva** con información completa del usuario
+- **Sistema de roles** (Usuario, Moderador, Administrador)
+- **Estados de cuenta** (Activo, Suspendido, Baneado)
+- **Filtros por rol** y estado de cuenta
+- **Búsqueda** por nombre, email o ID
+
+#### Funcionalidades de Moderación:
+- **Cambio de roles** con confirmación
+- **Suspensión temporal** con duración configurable
+- **Ban permanente** con motivo obligatorio
+- **Historial de sanciones** por usuario
+- **Estadísticas de actividad** (reseñas, login, etc.)
+
+#### Información Mostrada:
+- 📊 **ID de usuario** y fecha de registro
+- 👤 **Nombre completo** y email verificado
+- 🎭 **Rol actual** con badge visual
+- ⭐ **Total de reseñas** escritas
+- 📅 **Último acceso** al sistema
+- 🛡️ **Estado de cuenta** con indicadores visuales
+
+*[Espacio reservado para imagen de la gestión de usuarios con roles]*
+
+### 📝 Componente Moderación de Reseñas (Admin)
+
+#### Sistema de Moderación:
+- **Cola de revisión** con reseñas pendientes
+- **Vista previa** del contenido original y censurado
+- **Sistema de flags** automáticos por palabras prohibidas
+- **Moderación manual** con opciones de aprobación/rechazo
+- **Historial completo** de acciones de moderación
+
+#### Características del Sistema de Censura:
+- **Detección automática** de palabras inapropiadas
+- **Lista personalizable** de términos prohibidos
+- **Reemplazo inteligente** con asteriscos
+- **Niveles de severidad** (Leve, Moderado, Severo)
+- **Notificaciones** al usuario sobre contenido modificado
+
+#### Métricas y Estadísticas:
+- 📈 **Total de reseñas** moderadas por período
+- 🚫 **Porcentaje de censura** automática vs manual
+- 👤 **Usuarios más reportados** y estadísticas
+- ⏱️ **Tiempo promedio** de moderación
+- 📊 **Distribución por tipo** de contenido problemático
+
+*[Espacio reservado para imagen del sistema de moderación de reseñas]*
+
+### 🏠 Dashboard Administrativo
+
+#### Widgets de Estadísticas:
+- **Usuarios totales** con crecimiento mensual
+- **Películas en catálogo** con añadidas recientemente
+- **Reseñas pendientes** de moderación
+- **Actividad del día** con gráfico en tiempo real
+- **Top películas** más reseñadas del mes
+
+#### Gráficos y Visualizaciones:
+- **Gráfico de líneas**: Actividad de usuarios por mes
+- **Gráfico de barras**: Reseñas por categoría de película
+- **Gráfico circular**: Distribución de roles de usuarios
+- **Mapa de calor**: Actividad por hora del día
+- **Tabla de ranking**: Películas mejor calificadas
+
+#### Accesos Rápidos:
+- 🚀 **Crear nueva película** - Acceso directo al formulario
+- 👥 **Ver usuarios recientes** - Últimos registros
+- 📝 **Moderar reseñas** - Cola de pendientes
+- 📊 **Generar reporte** - Estadísticas exportables
+- ⚙️ **Configuración** - Ajustes del sistema
+
+*[Espacio reservado para imagen del dashboard con todas las métricas]*
+
+## 👤 Experiencia del Usuario Final
+
+### 🎬 Catálogo de Películas (Usuario)
+
+#### Navegación y Búsqueda:
+- **Grid responsivo** con cards atractivas de películas
+- **Búsqueda inteligente** con sugerencias automáticas
+- **Filtros múltiples** por género, año, calificación
+- **Ordenamiento** por popularidad, fecha, calificación
+- **Paginación infinita** para mejor UX
+
+#### Información por Película:
+- 🎭 **Portada en alta calidad** con lazy loading
+- ⭐ **Calificación promedio** calculada automáticamente
+- 📝 **Sinopsis completa** con expand/collapse
+- 🎬 **Información técnica** (director, año, género)
+- 💬 **Contador de reseñas** con link directo
+
+*[Espacio reservado para imagen del catálogo público de películas]*
+
+### ⭐ Sistema de Reseñas (Usuario)
+
+#### Crear Reseña:
+- **Calificación por estrellas** interactiva (1-5)
+- **Editor de texto** enriquecido para comentarios
+- **Vista previa** antes de publicar
+- **Validación en tiempo real** de contenido
+- **Guardado automático** de borradores
+
+#### Visualización de Reseñas:
+- **Layout tipo tarjetas** con información del autor
+- **Sistema de likes** y valoración de reseñas
+- **Ordenamiento** por fecha, calificación o popularidad
+- **Respuestas anidadas** entre usuarios
+- **Reportar contenido** inapropiado
+
+*[Espacio reservado para imagen del sistema de reseñas de usuarios]*
+
 ### Backend
 - **Laravel 11**
 - PHP 8.2+
 - MySQL
 - Sanctum (Autenticación)
 
-## 📦 Estructura del Proyecto
+### Librerías y Dependencias Principales
+
+#### Frontend (Angular)
+- **@angular/forms**: Formularios reactivos
+- **@angular/router**: Navegación SPA
+- **@angular/common/http**: Cliente HTTP
+- **bootstrap**: Framework CSS responsivo
+- **chart.js**: Gráficos y visualizaciones
+- **ng-bootstrap**: Componentes Bootstrap para Angular
+
+#### Backend (Laravel)
+- **laravel/sanctum**: Autenticación API
+- **intervention/image**: Manipulación de imágenes
+- **guzzlehttp/guzzle**: Cliente HTTP
+- **faker**: Generación de datos de prueba
+- **phpunit**: Testing unitario
+
+*[Espacio reservado para imagen del stack tecnológico completo]*
+
+## 🧪 Testing y Calidad
+
+### 🔍 Testing Frontend
+- **Unit Tests**: Jasmine + Karma para componentes
+- **Integration Tests**: Pruebas de servicios y API
+- **E2E Tests**: Cypress para flujos completos
+- **Coverage**: Mínimo 80% de cobertura de código
+
+### �️ Testing Backend
+- **PHPUnit**: Tests unitarios y de feature
+- **Database Testing**: Pruebas con base de datos en memoria
+- **API Testing**: Validación completa de endpoints
+- **Security Testing**: Pruebas de vulnerabilidades
+
+### 📊 Métricas de Calidad
+- **Code Coverage**: > 80%
+- **Performance**: Lighthouse Score > 90
+- **Accessibility**: WCAG 2.1 AA compliance
+- **SEO**: Meta tags y estructura optimizada
+
+*[Espacio reservado para imagen de reportes de testing]*
+
+## 🚀 Despliegue y DevOps
+
+### 🌐 Opciones de Hosting
+
+#### Backend (API Laravel)
+- **Heroku**: Deploy con Git, escalable
+- **Railway**: CI/CD automático, Docker
+- **DigitalOcean**: App Platform, alta disponibilidad
+- **AWS**: EC2 + RDS para producción enterprise
+
+#### Frontend (Angular)
+- **Vercel**: Deploy automático, CDN global
+- **Netlify**: CI/CD integrado, forms handling
+- **Firebase Hosting**: Google Cloud, SSL gratuito
+- **GitHub Pages**: Para demos y documentación
+
+### 🔄 CI/CD Pipeline
+- **GitHub Actions**: Automatización de tests y deploy
+- **Docker**: Containerización para consistencia
+- **Environment Variables**: Configuración segura
+- **Database Migrations**: Deploy automático de esquemas
+
+*[Espacio reservado para imagen del pipeline de deployment]*
+
+## 📈 Métricas y Monitoreo
+
+### 📊 Analytics Implementados
+- **Google Analytics**: Tracking de usuarios y comportamiento
+- **Performance Monitoring**: Core Web Vitals
+- **Error Tracking**: Logs centralizados de errores
+- **Usage Metrics**: Estadísticas de uso de features
+
+### 🔍 Logs y Debugging
+- **Laravel Telescope**: Debugging de queries y requests
+- **Browser DevTools**: Debugging frontend en desarrollo
+- **Error Reporting**: Notificaciones automáticas de errores
+- **Performance Profiling**: Análisis de rendimiento
+
+*[Espacio reservado para imagen del dashboard de métricas]*
+
+## 📦 Estructura Completa del Proyecto
 
 ```
 CinefilosAPP/
-├── frontend-angular/     # Aplicación Angular
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── components/
-│   │   │   ├── services/
-│   │   │   └── models/
-│   │   └── assets/
-│   └── package.json
-├── backend-laravel/      # API Laravel
-│   ├── app/
-│   │   ├── Http/Controllers/
-│   │   ├── Models/
-│   │   └── Services/
-│   ├── routes/
-│   ├── database/
-│   └── composer.json
-└── README.md
+├── 📁 frontend-angular/              # Aplicación Angular
+│   ├── 📁 src/
+│   │   ├── 📁 app/
+│   │   │   ├── 📁 components/
+│   │   │   │   ├── 📁 admin/         # Componentes administrativos
+│   │   │   │   │   ├── admin-dashboard/
+│   │   │   │   │   ├── admin-peliculas/
+│   │   │   │   │   ├── admin-usuarios/
+│   │   │   │   │   └── admin-resenas/
+│   │   │   │   ├── 📁 auth/          # Autenticación
+│   │   │   │   │   ├── login/
+│   │   │   │   │   ├── register/
+│   │   │   │   │   └── profile/
+│   │   │   │   ├── 📁 peliculas/     # Gestión de películas
+│   │   │   │   │   ├── lista-peliculas/
+│   │   │   │   │   ├── detalle-pelicula/
+│   │   │   │   │   └── formulario-pelicula/
+│   │   │   │   └── 📁 resenas/       # Sistema de reseñas
+│   │   │   │       ├── lista-resenas/
+│   │   │   │       ├── formulario-resena/
+│   │   │   │       └── resena-card/
+│   │   │   ├── 📁 services/          # Servicios Angular
+│   │   │   │   ├── auth.service.ts
+│   │   │   │   ├── pelicula.service.ts
+│   │   │   │   ├── resena.service.ts
+│   │   │   │   └── admin.service.ts
+│   │   │   ├── 📁 models/           # Interfaces TypeScript
+│   │   │   │   ├── user.model.ts
+│   │   │   │   ├── pelicula.model.ts
+│   │   │   │   └── resena.model.ts
+│   │   │   ├── 📁 guards/           # Route Guards
+│   │   │   │   ├── auth.guard.ts
+│   │   │   │   └── admin.guard.ts
+│   │   │   └── 📁 interceptors/     # HTTP Interceptors
+│   │   │       ├── auth.interceptor.ts
+│   │   │       └── error.interceptor.ts
+│   │   ├── 📁 assets/               # Recursos estáticos
+│   │   │   ├── 📁 images/
+│   │   │   ├── 📁 icons/
+│   │   │   └── 📁 data/
+│   │   └── 📁 styles/               # Estilos globales
+│   │       ├── globals.css
+│   │       ├── variables.css
+│   │       └── components.css
+│   ├── 📄 angular.json              # Configuración Angular
+│   ├── 📄 package.json              # Dependencias npm
+│   └── 📄 tsconfig.json             # Configuración TypeScript
+│
+├── 📁 backend-laravel/              # API Laravel
+│   ├── 📁 app/
+│   │   ├── 📁 Http/
+│   │   │   ├── 📁 Controllers/      # Controladores
+│   │   │   │   ├── AuthController.php
+│   │   │   │   ├── PeliculaController.php
+│   │   │   │   ├── ResenaController.php
+│   │   │   │   └── AdminController.php
+│   │   │   ├── 📁 Middleware/       # Middleware personalizado
+│   │   │   │   ├── AdminMiddleware.php
+│   │   │   │   └── CorsMiddleware.php
+│   │   │   └── 📁 Requests/         # Form Requests
+│   │   │       ├── StorePeliculaRequest.php
+│   │   │       └── StoreResenaRequest.php
+│   │   ├── 📁 Models/               # Modelos Eloquent
+│   │   │   ├── User.php
+│   │   │   ├── Pelicula.php
+│   │   │   └── Resena.php
+│   │   └── 📁 Services/             # Servicios de negocio
+│   │       ├── EmailService.php
+│   │       ├── ImageService.php
+│   │       └── CensuraService.php
+│   ├── 📁 database/
+│   │   ├── 📁 migrations/           # Migraciones de BD
+│   │   │   ├── create_users_table.php
+│   │   │   ├── create_peliculas_table.php
+│   │   │   └── create_resenas_table.php
+│   │   ├── 📁 seeders/              # Datos de prueba
+│   │   │   ├── UserSeeder.php
+│   │   │   ├── PeliculaSeeder.php
+│   │   │   └── ResenaSeeder.php
+│   │   └── 📁 factories/            # Model Factories
+│   ├── 📁 routes/                   # Rutas de la aplicación
+│   │   ├── api.php                  # Rutas API
+│   │   ├── web.php                  # Rutas web
+│   │   └── console.php              # Comandos console
+│   ├── 📁 config/                   # Configuraciones
+│   │   ├── database.php
+│   │   ├── cors.php
+│   │   ├── sanctum.php
+│   │   └── app.php
+│   ├── 📁 storage/                  # Archivos y logs
+│   │   ├── 📁 app/public/          # Archivos públicos
+│   │   └── 📁 logs/                 # Logs del sistema
+│   ├── 📁 tests/                    # Tests automatizados
+│   │   ├── 📁 Feature/              # Tests de integración
+│   │   └── 📁 Unit/                 # Tests unitarios
+│   ├── 📄 composer.json             # Dependencias PHP
+│   ├── 📄 .env.example              # Variables de entorno
+│   └── 📄 artisan                   # CLI de Laravel
+│
+├── 📁 docs/                         # Documentación
+│   ├── 📄 API.md                    # Documentación API
+│   ├── 📄 DEPLOYMENT.md             # Guía de despliegue
+│   └── 📁 images/                   # Imágenes de documentación
+│
+├── 📁 .github/                      # GitHub Actions
+│   └── 📁 workflows/
+│       ├── frontend-ci.yml          # CI Frontend
+│       └── backend-ci.yml           # CI Backend
+│
+├── 📄 README.md                     # Este archivo
+├── 📄 .gitignore                    # Archivos ignorados
+├── 📄 LICENSE                       # Licencia del proyecto
+└── 📄 docker-compose.yml           # Configuración Docker
 ```
+
+*[Espacio reservado para imagen de la estructura del proyecto en VS Code]*
 
 ## 🔧 Instalación y Configuración
 
@@ -136,23 +561,134 @@ ng serve
 
 ## 📱 Funcionalidades Principales
 
-### Gestión de Películas
-- Catálogo completo con información detallada
-- Búsqueda por título, género y director
-- Sistema de calificaciones promedio
-- Subida de imágenes de portada
+### 🎬 Gestión de Películas
+El sistema de películas permite a los usuarios explorar un catálogo completo con:
 
-### Sistema de Reseñas
-- Reseñas con calificación de 1-5 estrellas
-- Comentarios de usuarios
-- Moderación de contenido
-- Censura automática de palabras inapropiadas
+- **Catálogo dinámico** con información detallada de cada película
+- **Búsqueda avanzada** por título, género, director y año
+- **Sistema de calificaciones** con promedio automático
+- **Subida de imágenes** de portada con validación
+- **Filtros múltiples** para encontrar contenido específico
 
-### Administración
-- Dashboard con estadísticas
-- CRUD completo de películas y usuarios
-- Gestión de reseñas y moderación
-- Sistema de roles y permisos
+*[Espacio reservado para imagen del catálogo de películas]*
+
+### ⭐ Sistema de Reseñas
+Los usuarios pueden interactuar y compartir opiniones mediante:
+
+- **Reseñas completas** con calificación de 1-5 estrellas
+- **Comentarios detallados** con validación de contenido
+- **Moderación automática** de palabras inapropiadas
+- **Historial de reseñas** por usuario
+- **Censura inteligente** que protege el contenido
+
+*[Espacio reservado para imagen del sistema de reseñas]*
+
+## 👑 Panel de Administración
+
+El panel de administración es el corazón del sistema, diseñado para gestionar todos los aspectos de la plataforma.
+
+### 🏠 Dashboard Principal
+El dashboard ofrece una vista general completa con:
+
+- **Estadísticas en tiempo real** del sistema
+- **Gráficos de actividad** de usuarios y contenido
+- **Métricas de películas** más populares
+- **Resumen de reseñas** pendientes de moderación
+- **Alertas del sistema** y notificaciones importantes
+
+*[Espacio reservado para imagen del dashboard de administración]*
+
+### 🎭 Gestión de Películas (Admin)
+Los administradores tienen control total sobre el catálogo:
+
+#### Componentes principales:
+- **Lista de películas** con paginación y filtros avanzados
+- **Editor de películas** con formulario completo
+- **Subida de imágenes** con preview en tiempo real
+- **Validación de datos** en frontend y backend
+- **Eliminación segura** con confirmación
+
+#### Funcionalidades detalladas:
+- ✅ **Crear películas**: Formulario completo con título, sinopsis, director, género, año
+- ✅ **Editar información**: Modificación de todos los campos de la película
+- ✅ **Gestión de imágenes**: Subida, preview y eliminación de portadas
+- ✅ **Control de visibilidad**: Activar/desactivar películas del catálogo público
+- ✅ **Búsqueda administrativa**: Filtros por estado, género, año y popularidad
+
+*[Espacio reservado para imagen de gestión de películas]*
+
+### 👥 Gestión de Usuarios (Admin)
+Sistema completo para administrar la comunidad:
+
+#### Componentes principales:
+- **Lista de usuarios** con información detallada
+- **Editor de perfiles** con roles y permisos
+- **Sistema de roles** (Usuario, Moderador, Administrador)
+- **Historial de actividad** por usuario
+- **Gestión de bans** y suspensiones
+
+#### Funcionalidades detalladas:
+- ✅ **Visualizar usuarios**: Lista completa con filtros por rol y estado
+- ✅ **Editar perfiles**: Modificar información personal y roles
+- ✅ **Gestión de roles**: Asignar permisos específicos
+- ✅ **Suspender usuarios**: Sistema de bans temporales y permanentes
+- ✅ **Historial de reseñas**: Ver todas las reseñas de un usuario específico
+
+*[Espacio reservado para imagen de gestión de usuarios]*
+
+### 📝 Moderación de Reseñas (Admin)
+Herramientas avanzadas para mantener la calidad del contenido:
+
+#### Componentes principales:
+- **Cola de moderación** con reseñas pendientes
+- **Sistema de censura** automática y manual
+- **Reportes de usuarios** sobre contenido inapropiado
+- **Historial de moderación** con acciones realizadas
+- **Filtros inteligentes** para detectar contenido problemático
+
+#### Funcionalidades detalladas:
+- ✅ **Aprobar/rechazar reseñas**: Sistema de moderación manual
+- ✅ **Censura automática**: Detección de palabras inapropiadas
+- ✅ **Edición de contenido**: Corrección de reseñas problemáticas
+- ✅ **Sistema de reportes**: Los usuarios pueden reportar contenido
+- ✅ **Estadísticas de moderación**: Métricas de contenido censurado
+
+*[Espacio reservado para imagen de moderación de reseñas]*
+
+## 👤 Experiencia del Usuario
+
+### 🔐 Autenticación y Registro
+Sistema seguro y user-friendly:
+
+- **Registro simple** con validación en tiempo real
+- **Login seguro** con Laravel Sanctum
+- **Recuperación de contraseña** por email
+- **Perfiles personalizables** con información del usuario
+- **Gestión de sesiones** con tokens seguros
+
+*[Espacio reservado para imagen del sistema de login]*
+
+### 🎯 Interfaz de Usuario
+Diseño moderno y responsivo:
+
+- **Navegación intuitiva** con menús organizados
+- **Diseño responsivo** que se adapta a todos los dispositivos
+- **Búsqueda inteligente** con sugerencias automáticas
+- **Filtros avanzados** para encontrar contenido específico
+- **Experiencia fluida** sin recargas de página
+
+*[Espacio reservado para imagen de la interfaz principal]*
+
+### 📊 Dashboard de Usuario
+Cada usuario tiene su propio espacio personal:
+
+- **Mis reseñas** con historial completo
+- **Películas favoritas** marcadas por el usuario
+- **Estadísticas personales** de actividad
+- **Configuración de perfil** editable
+- **Notificaciones** de actividad relevante
+
+*[Espacio reservado para imagen del dashboard de usuario]*
 
 ## 🔐 Seguridad
 
@@ -202,20 +738,8 @@ ng serve
 4. Push a la rama (`git push origin feature/AmazingFeature`)
 5. Abre un Pull Request
 
-## 📝 Licencia
 
-Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
 
-## 👨‍💻 Autor
+[GitHub](https://github.com/Rubiss1118)
 
-**Rubén** - [GitHub](https://github.com/Rubiss1118)
 
-## 🙏 Agradecimientos
-
-- Comunidad Angular y Laravel
-- Iconos de películas y emojis
-- Inspiración en plataformas cinematográficas populares
-
----
-
-⭐ ¡No olvides darle una estrella al proyecto si te ha sido útil!

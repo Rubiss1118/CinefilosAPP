@@ -5,7 +5,7 @@
 
 Materia:PROGRAMACION WEB
 
-### “API DE RESEÑAS DE PELICULAS ”
+### “API DE RESEÑAS DE PELICULAS”
 
 Profesor: Martinez Nieto Adelina Equipo:
 

@@ -67,27 +67,50 @@ src/app/
 - Gráficos de actividad con Chart.js
 - Accesos rápidos a secciones principales
 - Notificaciones y alertas del sistema
+<img width="1919" height="1005" alt="image" src="https://github.com/user-attachments/assets/4a01a2e2-a563-4bf2-82ba-2a35be6274fc" />
 
-*[Espacio reservado para imagen de la arquitectura de componentes]*
 
 **Admin Películas Component:**
 - Tabla responsiva con paginación
-- Formularios reactivos con validación
-- Subida de archivos con drag & drop
-- Modal de confirmación para eliminaciones
-- Filtros avanzados y búsqueda en tiempo real
+- <img width="1919" height="871" alt="image" src="https://github.com/user-attachments/assets/2f8815ee-ce3d-4389-9b89-8e17d1dc7f80" />
+
+- <img width="1919" height="1023" alt="image" src="https://github.com/user-attachments/assets/0ad60b14-a6d5-4439-bc2f-50f7c4cfe2a9" />
+
+- Se implemento la gestion de peliculas para el administrador 
+  <img width="1919" height="876" alt="image" src="https://github.com/user-attachments/assets/aa5f15cd-f1e4-4bc4-8768-c1ae98b37349" />
+-Se puede editar o borrar las peliculas y se puede crear una nueva
+<img width="1919" height="1005" alt="image" src="https://github.com/user-attachments/assets/3868abfd-115a-45e2-9f17-087cffc22ac2" />
+
+<img width="1917" height="858" alt="image" src="https://github.com/user-attachments/assets/ab2dcd57-b145-45a4-bb9c-13d98f5a83c8" />
+
+- Modal de confirmación para eliminaciones de peliculas en gestion de peliculas.
+- <img width="1919" height="999" alt="image" src="https://github.com/user-attachments/assets/2789796e-86d5-4a07-9dca-b31598ed5f09" />
+- Filtrado de peliculas por nombre,director y genero
+- <img width="1511" height="854" alt="image" src="https://github.com/user-attachments/assets/0f51e245-117e-42dc-920f-de1cb18b94d4" />
 
 **Admin Usuarios Component:**
+<img width="1919" height="887" alt="image" src="https://github.com/user-attachments/assets/28598a3d-df76-4da5-a053-4442892db21f" />
 - Sistema de roles con dropdowns
-- Gestión de permisos granular
-- Historial de actividad por usuario
-- Bulk actions para múltiples usuarios
+- <img width="1525" height="580" alt="image" src="https://github.com/user-attachments/assets/cfe5c181-35f1-413f-b357-02ab9ef9fe3c" />
+-Editar y borrar un usuario
+<img width="1919" height="998" alt="image" src="https://github.com/user-attachments/assets/dddf63e1-d19e-4370-b593-3947e3524c11" />
+<img width="1919" height="1012" alt="image" src="https://github.com/user-attachments/assets/f8094446-950b-4afd-aaa9-52b7b507f286" />
+-Filtrado de usuarios y paginacion
+<img width="1559" height="595" alt="image" src="https://github.com/user-attachments/assets/082a31cb-400c-4a70-90be-9a06c094eafa" />
 
 **Admin Reseñas Component:**
-- Cola de moderación con estados
+- Dasboard de reseñas
+- <img width="1919" height="899" alt="image" src="https://github.com/user-attachments/assets/652ca259-5ad2-4d41-9a38-298ecc0c393a" />
+-Filtrado por calificacion
+<img width="538" height="398" alt="image" src="https://github.com/user-attachments/assets/f4a3ee87-9940-4031-abda-c31901dd2a70" />
+
 - Preview de contenido censurado
-- Sistema de aprobación/rechazo masivo
-- Filtros por estado de moderación
+- <img width="1509" height="776" alt="image" src="https://github.com/user-attachments/assets/fad5f7a1-0e25-4242-93d8-2535f755046e" />
+
+- Filtrado de pelicula y usuario
+- <img width="1919" height="1012" alt="image" src="https://github.com/user-attachments/assets/01b04c65-19eb-4e5f-b803-d29a220bb439" />
+.<img width="1919" height="908" alt="image" src="https://github.com/user-attachments/assets/8657c94e-3085-40f6-9661-4046c2fc51a2" />
+
 
 ### ⚙️ Backend Laravel - Arquitectura API
 
@@ -119,14 +142,6 @@ app/
     └── seeders/                      # Datos de prueba
 ```
 
-#### 🛡️ Características de Seguridad
-- **Laravel Sanctum**: Autenticación con tokens
-- **Middleware personalizado**: Verificación de roles
-- **Validación robusta**: Request classes específicas
-- **CORS configurado**: Para comunicación frontend-backend
-- **Sanitización de datos**: Prevención de inyecciones
-
-*[Espacio reservado para imagen de la arquitectura del backend]*
 
 ## 🛠️ Tecnologías Utilizadas
 
@@ -162,7 +177,6 @@ app/
 - ✅ **Género**: Selección de lista predefinida
 - ✅ **Imagen**: Máximo 2MB, formatos específicos
 
-*[Espacio reservado para imagen del formulario de películas con validaciones]*
 
 ### 👥 Componente Gestión de Usuarios (Admin)
 
@@ -188,8 +202,6 @@ app/
 - 📅 **Último acceso** al sistema
 - 🛡️ **Estado de cuenta** con indicadores visuales
 
-*[Espacio reservado para imagen de la gestión de usuarios con roles]*
-
 ### 📝 Componente Moderación de Reseñas (Admin)
 
 #### Sistema de Moderación:
@@ -213,7 +225,6 @@ app/
 - ⏱️ **Tiempo promedio** de moderación
 - 📊 **Distribución por tipo** de contenido problemático
 
-*[Espacio reservado para imagen del sistema de moderación de reseñas]*
 
 ### 🏠 Dashboard Administrativo
 
@@ -237,8 +248,6 @@ app/
 - 📝 **Moderar reseñas** - Cola de pendientes
 - 📊 **Generar reporte** - Estadísticas exportables
 - ⚙️ **Configuración** - Ajustes del sistema
-
-*[Espacio reservado para imagen del dashboard con todas las métricas]*
 
 ## 👤 Experiencia del Usuario Final
 

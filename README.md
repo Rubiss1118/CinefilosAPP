@@ -1,11 +1,16 @@
 
-INSTITUTO TECNOLÓGICO DE OAXACA
-Departamento de Ingeniería en Sistemas Computacionales
+### INSTITUTO TECNOLÓGICO DE OAXACA
+
+### Departamento de Ingeniería en Sistemas Computacionales
+
 Materia:PROGRAMACION WEB
-“API DE RESEÑAS DE PELICULAS ”
-Profesor: Martinez Nieto Adelina Equipo: 
-MORALES OSORIO RUBI ESMERALDA ROL: FRONTEND
-JIMENEZ CASTILLEJOS FABIAN DE JESUS ROL: BACKEND
+
+### “API DE RESEÑAS DE PELICULAS ”
+
+Profesor: Martinez Nieto Adelina Equipo:
+
+### MORALES OSORIO RUBI ESMERALDA ROL: FRONTEND
+### JIMENEZ CASTILLEJOS FABIAN DE JESUS ROL: BACKEND
 
 Grupo: VSI Oaxaca de juarez a 28 de julio de 2025
 

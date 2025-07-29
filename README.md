@@ -36,14 +36,14 @@ un proceso que es seguro porque nunca almacena contraseñas en texto plano.
 - **Admin**: admin@cinefilos.com / password123
 - **Usuario**: juan@example.com / password123
 
-### 🔐 Autenticación y Registro
-Sistema seguro y user-friendly:
+### 🔐 Autenticación 
+- **Inicio de sesion simple admin** con validación en tiempo real
+<img width="549" height="841" alt="image" src="https://github.com/user-attachments/assets/3d5950c2-217f-401b-a347-f12d78d31f8b" />
 
-- **Registro simple** con validación en tiempo real
-- 
+- **Inicio de sesion simple usuario** con validación en tiempo real
 - <img width="609" height="866" alt="image" src="https://github.com/user-attachments/assets/4ba90af5-6d45-48b8-a52a-49b3f28555ed" />
   
-- **Recuperación de contraseña** por GMAIL
+- ## Recuperación de contraseña GMAIL
   
 - ## Librerías Principales
   

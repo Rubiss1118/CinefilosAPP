@@ -26,7 +26,11 @@ y gestionar contenido cinematográfico a través de un panel administrativo robu
 ## FUNCIONALIDADES 
 
 ## PROCESO DE LOGUEO 
-
+El proceso de autenticación en CinefilosAPP funciona mediante un sistema robusto basado en Laravel Sanctum que garantiza la seguridad de los usuarios.
+Cuando un usuario intenta iniciar sesión, el sistema primero valida que el email tenga formato correcto y que la contraseña esté presente,
+luego busca en la base de datos un usuario que coincida con el email proporcionado. 
+Si encuentra el usuario, utiliza la función Hash::check() de Laravel para comparar la contraseña ingresada con el hash almacenado en la base de datos,
+un proceso que es seguro porque nunca almacena contraseñas en texto plano.
 
 ### Credenciales por defecto:
 - **Admin**: admin@cinefilos.com / password123
@@ -36,14 +40,20 @@ y gestionar contenido cinematográfico a través de un panel administrativo robu
 Sistema seguro y user-friendly:
 
 - **Registro simple** con validación en tiempo real
-- <img width="609" height="866" alt="image" src="https://github.com/user-attachments/assets/4ba90af5-6d45-48b8-a52a-49b3f28555ed" />
 - 
+- <img width="609" height="866" alt="image" src="https://github.com/user-attachments/assets/4ba90af5-6d45-48b8-a52a-49b3f28555ed" />
+  
 - **Recuperación de contraseña** por GMAIL
+  
 - ## Librerías Principales
   
 Laravel Mail: Sistema nativo de Laravel (incluido en el framework)
 Symfony Mailer: Motor subyacente que usa Laravel (automáticamente incluido)
 SwiftMailer: Componente base para el envío de emails
+
+La generación de códigos de verificación se realiza mediante un algoritmo seguro
+implementado en PHP que crea códigos aleatorios de 6 dígitos. 
+El proceso comienza cuando un usuario solicita recuperar su contraseña y el sistema ejecuta la función random_int(0, 999999).
 
 - Olvidaste tu contraseña?
 - <img width="1919" height="998" alt="image" src="https://github.com/user-attachments/assets/66d93304-34f0-4538-995f-7760243e724f" />

@@ -43,7 +43,7 @@ un proceso que es seguro porque nunca almacena contraseñas en texto plano.
 - **Inicio de sesion simple usuario** con validación en tiempo real
 - <img width="609" height="866" alt="image" src="https://github.com/user-attachments/assets/4ba90af5-6d45-48b8-a52a-49b3f28555ed" />
   
-- ## Recuperación de contraseña GMAIL
+- ## Recuperación de contraseña  GMAIL
   
 - ## Librerías Principales
   
@@ -56,9 +56,12 @@ implementado en PHP que crea códigos aleatorios de 6 dígitos.
 El proceso comienza cuando un usuario solicita recuperar su contraseña y el sistema ejecuta la función random_int(0, 999999).
 
 - Olvidaste tu contraseña?
+- En este apartado se agrega el correo el cual se ocupo para el registro del usuario, agregar otro correo no lo tomaria como correcto.
 - <img width="1919" height="998" alt="image" src="https://github.com/user-attachments/assets/66d93304-34f0-4538-995f-7760243e724f" />
+-Se manda un correo al gmail con los 6 digitos de verificacion .
 <img width="1919" height="1021" alt="image" src="https://github.com/user-attachments/assets/42ad487d-64f1-4e62-ae45-0940d75b7d87" />
 <img width="748" height="777" alt="image" src="https://github.com/user-attachments/assets/f82cbf25-eae5-43c7-a7d9-017b0d418e9c" />
+-Cuando se agregue el codigo correcto dejara poner otra contraseña y la se guardara directamente en la base de datos.
 <img width="711" height="789" alt="image" src="https://github.com/user-attachments/assets/be7261d2-4328-41bc-8e68-565349b3ad78" />
 <img width="702" height="1600" alt="image" src="https://github.com/user-attachments/assets/360f2a67-6e9b-4b2c-8f89-aee54da2eb4f" />
 
@@ -68,19 +71,21 @@ El proceso comienza cuando un usuario solicita recuperar su contraseña y el sis
 <img width="545" height="605" alt="image" src="https://github.com/user-attachments/assets/d508a34b-6a24-4108-bedd-29770e69f0c5" />
 
 ## registro de usuario
--Se pueden registrar un usuario nuevo con nombre correo y contraseña
+-Se pueden registrar un usuario nuevo con nombre correo y contraseña es escencial que se ponga bien el correo ya que si no , el administrador
+es el unico que puede modificar el usuario.
 <img width="737" height="876" alt="image" src="https://github.com/user-attachments/assets/7957be0e-ec65-4034-8abf-e81471152cd9" />
 -Redirige a la cuenta creada
 <img width="1919" height="783" alt="image" src="https://github.com/user-attachments/assets/0f1c898b-d9a0-47d2-a99b-42eac1def50c" />
 -Usuario creado en la base de datos 
 
  ## NIVELES DE USUARIO 
-Rol	        Permisos	           Funcionalidades
-Admin	   Control Total	   • Gestión completa de películas (CRUD)<br>• Moderación de reseñas<br>• Gestión de usuarios<br>• Panel administrativo<br>• NO puede crear reseñas
-Cinefilo  Usuario Final	       • Ver catálogo de películas<br>• Crear/editar/eliminar sus reseñas<br>• Calificar películas<br>• Ver reseñas de otros usuarios
+Rol	:Admin	Control Total	   
+• Gestión completa de películas (CRUD)• Moderación de reseñas<br>• Gestión de usuarios• Panel administrativo• NO puede crear reseñas
+Rol: Cinefilo  Usuario Final	
+• Ver catálogo de películas<br>• Crear/editar/eliminar sus reseñas• Calificar películas• Ver reseñas de otros usuarios
 
 
-### 🎨 Frontend Angular - Componentes Principales
+## FUNCIONANLIDADES UNICAS DEL PROYECTO
 
 #### 📁 Estructura de Componentes
 ```
@@ -112,8 +117,7 @@ src/app/
     ├── user.model.ts                 # Modelo de usuario
     ├── pelicula.model.ts             # Modelo de película
     └── resena.model.ts               # Modelo de reseña
-```
-## FUNCIONANLIDADES UNICAS DEL PROYECTO 
+``` 
 #### Componentes Administrativos
 
 **Admin Dashboard Component:**

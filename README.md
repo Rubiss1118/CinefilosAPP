@@ -1,5 +1,6 @@
 
-### INSTITUTO TECNOLÓGICO DE OAXACA
+### ENCABEZADO
+INSTITUTO TECNOLÓGICO DE OAXACA
 
 ### Departamento de Ingeniería en Sistemas Computacionales
 
@@ -14,34 +15,60 @@ Profesor: Martinez Nieto Adelina Equipo:
 
 Grupo: VSI Oaxaca de juarez a 28 de julio de 2025
 
-Tipo de sistema: Sistema Web.
 # 🎬 CinefilosAPP
 
-Una aplicación web completa para cinéfilos que permite explorar películas, escribir reseñas y gestionar contenido cinematográfico.
+**¿Qué hace el sistema?**
+Sistema web completo para cinéfilos que permite explorar un catálogo de películas, escribir reseñas detalladas con calificaciones, 
+y gestionar contenido cinematográfico a través de un panel administrativo robusto con moderación automática.
 
-## 📋 Descripción del Proyecto
+## Tipo de sistema: Sistema Web.
 
-CinefilosAPP es una plataforma web que combina:
-- **Frontend Angular**: Interfaz moderna y responsiva
-- **Backend Laravel**: API REST robusta y segura
-- **Base de datos MySQL**: Gestión eficiente de datos
+## FUNCIONALIDADES 
 
-## 🚀 Características
+## PROCESO DE LOGUEO 
 
-### Para Usuarios:
-- 🎬 Galería de películas con búsqueda avanzada
-- ⭐ Sistema de calificaciones y reseñas
-- 👤 Perfiles de usuario personalizables
-- 📱 Diseño responsivo
 
-### Para Administradores:
-- 📊 Panel de administración completo
-- 🎭 Gestión de películas (CRUD)
-- 👥 Gestión de usuarios
-- 📝 Moderación de reseñas
-- 🛡️ Sistema de censura automática
+### Credenciales por defecto:
+- **Admin**: admin@cinefilos.com / password123
+- **Usuario**: juan@example.com / password123
 
-## 🏗️ Arquitectura Técnica
+### 🔐 Autenticación y Registro
+Sistema seguro y user-friendly:
+
+- **Registro simple** con validación en tiempo real
+- <img width="609" height="866" alt="image" src="https://github.com/user-attachments/assets/4ba90af5-6d45-48b8-a52a-49b3f28555ed" />
+- 
+- **Recuperación de contraseña** por GMAIL
+- ## Librerías Principales
+  
+Laravel Mail: Sistema nativo de Laravel (incluido en el framework)
+Symfony Mailer: Motor subyacente que usa Laravel (automáticamente incluido)
+SwiftMailer: Componente base para el envío de emails
+
+- Olvidaste tu contraseña?
+- <img width="1919" height="998" alt="image" src="https://github.com/user-attachments/assets/66d93304-34f0-4538-995f-7760243e724f" />
+<img width="1919" height="1021" alt="image" src="https://github.com/user-attachments/assets/42ad487d-64f1-4e62-ae45-0940d75b7d87" />
+<img width="748" height="777" alt="image" src="https://github.com/user-attachments/assets/f82cbf25-eae5-43c7-a7d9-017b0d418e9c" />
+<img width="711" height="789" alt="image" src="https://github.com/user-attachments/assets/be7261d2-4328-41bc-8e68-565349b3ad78" />
+<img width="702" height="1600" alt="image" src="https://github.com/user-attachments/assets/360f2a67-6e9b-4b2c-8f89-aee54da2eb4f" />
+
+<img width="1919" height="1024" alt="image" src="https://github.com/user-attachments/assets/a2e20644-0db6-4851-b29c-6aaca6ec1102" />
+-Verificar que si se cambio la contarseña
+<img width="617" height="858" alt="image" src="https://github.com/user-attachments/assets/76d44e69-0657-48b3-b105-7843cec68706" />
+<img width="545" height="605" alt="image" src="https://github.com/user-attachments/assets/d508a34b-6a24-4108-bedd-29770e69f0c5" />
+
+## registro de usuario
+-Se pueden registrar un usuario nuevo con nombre correo y contraseña
+<img width="737" height="876" alt="image" src="https://github.com/user-attachments/assets/7957be0e-ec65-4034-8abf-e81471152cd9" />
+-Redirige a la cuenta creada
+<img width="1919" height="783" alt="image" src="https://github.com/user-attachments/assets/0f1c898b-d9a0-47d2-a99b-42eac1def50c" />
+-Usuario creado en la base de datos 
+
+ ## NIVELES DE USUARIO 
+Rol	        Permisos	           Funcionalidades
+Admin	   Control Total	   • Gestión completa de películas (CRUD)<br>• Moderación de reseñas<br>• Gestión de usuarios<br>• Panel administrativo<br>• NO puede crear reseñas
+Cinefilo  Usuario Final	       • Ver catálogo de películas<br>• Crear/editar/eliminar sus reseñas<br>• Calificar películas<br>• Ver reseñas de otros usuarios
+
 
 ### 🎨 Frontend Angular - Componentes Principales
 
@@ -76,8 +103,8 @@ src/app/
     ├── pelicula.model.ts             # Modelo de película
     └── resena.model.ts               # Modelo de reseña
 ```
-
-#### 🔧 Componentes Administrativos Detallados
+## FUNCIONANLIDADES UNICAS DEL PROYECTO 
+#### Componentes Administrativos
 
 **Admin Dashboard Component:**
 - Widgets de estadísticas en tiempo real
@@ -128,51 +155,16 @@ src/app/
 - <img width="1919" height="1012" alt="image" src="https://github.com/user-attachments/assets/01b04c65-19eb-4e5f-b803-d29a220bb439" />
 .<img width="1919" height="908" alt="image" src="https://github.com/user-attachments/assets/8657c94e-3085-40f6-9661-4046c2fc51a2" />
 
-
-### ⚙️ Backend Laravel - Arquitectura API
-
-#### 📁 Estructura del Backend
-```
-app/
-├── Http/
-│   ├── Controllers/
-│   │   ├── AuthController.php        # Autenticación
-│   │   ├── PeliculaController.php    # CRUD películas
-│   │   ├── ResenaController.php      # CRUD reseñas
-│   │   └── AdminController.php       # Funciones admin
-│   ├── Middleware/
-│   │   ├── AdminMiddleware.php       # Verificación admin
-│   │   └── CorsMiddleware.php        # Configuración CORS
-│   └── Requests/
-│       ├── StorePeliculaRequest.php  # Validación películas
-│       └── StoreResenaRequest.php    # Validación reseñas
-├── Models/
-│   ├── User.php                      # Modelo usuario
-│   ├── Pelicula.php                  # Modelo película
-│   └── Resena.php                    # Modelo reseña
-├── Services/
-│   ├── EmailService.php              # Servicio de emails
-│   ├── ImageService.php              # Gestión de imágenes
-│   └── CensuraService.php            # Sistema de censura
-└── database/
-    ├── migrations/                   # Migraciones BD
-    └── seeders/                      # Datos de prueba
-```
-
-
-## 🛠️ Tecnologías Utilizadas
-
-### Frontend
-- **Angular 18+**
-- TypeScript
-- HTML5/CSS3
-- Bootstrap/CSS Grid
-
 ## 🔍 Características Detalladas por Componente
 
 ### 🎬 Componente Gestión de Películas (Admin)
 
-#### Funcionalidades Principales:
+#### Componentes principales:
+- **Lista de películas** con paginación y filtros avanzados
+- **Editor de películas** con formulario completo
+- **Subida de imágenes** con preview en tiempo real
+- **Validación de datos** en frontend y backend
+- **Eliminación segura** con confirmación
 - **Lista dinámica** con paginación de 10 elementos por página
 - **Búsqueda en tiempo real** por título, director o género
 - **Filtros avanzados** por año, calificación y estado
@@ -187,13 +179,12 @@ app/
 - **Estados de loading** durante operaciones
 
 #### Validaciones Implementadas:
-- ✅ **Título**: Mínimo 2 caracteres, máximo 100
-- ✅ **Sinopsis**: Máximo 1000 caracteres
-- ✅ **Director**: Mínimo 2 caracteres, máximo 50
-- ✅ **Año**: Entre 1900 y año actual + 2
-- ✅ **Género**: Selección de lista predefinida
-- ✅ **Imagen**: Máximo 2MB, formatos específicos
-
+**Título**: Mínimo 2 caracteres, máximo 100
+**Sinopsis**: Máximo 1000 caracteres
+**Director**: Mínimo 2 caracteres, máximo 50
+**Año**: Entre 1900 y año actual + 2
+**Género**: Selección de lista predefinida
+**Imagen**: Máximo 2MB, formatos específicos
 
 ### 👥 Componente Gestión de Usuarios (Admin)
 
@@ -204,13 +195,6 @@ app/
 - **Filtros por rol** y estado de cuenta
 - **Búsqueda** por nombre, email o ID
 
-#### Funcionalidades de Moderación:
-- **Cambio de roles** con confirmación
-- **Suspensión temporal** con duración configurable
-- **Ban permanente** con motivo obligatorio
-- **Historial de sanciones** por usuario
-- **Estadísticas de actividad** (reseñas, login, etc.)
-
 #### Información Mostrada:
 - 📊 **ID de usuario** y fecha de registro
 - 👤 **Nombre completo** y email verificado
@@ -220,14 +204,6 @@ app/
 - 🛡️ **Estado de cuenta** con indicadores visuales
 
 ### 📝 Componente Moderación de Reseñas (Admin)
-
-#### Sistema de Moderación:
-- **Cola de revisión** con reseñas pendientes
-- **Vista previa** del contenido original y censurado
-- **Sistema de flags** automáticos por palabras prohibidas
-- **Moderación manual** con opciones de aprobación/rechazo
-- **Historial completo** de acciones de moderación
-
 #### Características del Sistema de Censura:
 - **Detección automática** de palabras inapropiadas
 - **Lista personalizable** de términos prohibidos
@@ -242,30 +218,98 @@ app/
 - ⏱️ **Tiempo promedio** de moderación
 - 📊 **Distribución por tipo** de contenido problemático
 
+## Experiencia del Usuario Final
 
-### 🏠 Dashboard Administrativo
+### Interfaz de Usuario
+Diseño moderno y responsivo:
+<img width="1919" height="1021" alt="image" src="https://github.com/user-attachments/assets/ac1307c1-578f-42dd-b1f8-bcd90bb9bbb4" />
+- **Navegación intuitiva** con menús organizados
+- **Diseño responsivo** que se adapta a todos los dispositivos
+- **Búsqueda inteligente** con sugerencias automáticas
+- **Filtros avanzados** para encontrar contenido específico
+- **Experiencia fluida** sin recargas de página
+<img width="1919" height="1012" alt="image" src="https://github.com/user-attachments/assets/087b2f9c-4e50-4611-9fb6-ab69a38b2649" />
 
-#### Widgets de Estadísticas:
-- **Usuarios totales** con crecimiento mensual
-- **Películas en catálogo** con añadidas recientemente
-- **Reseñas pendientes** de moderación
-- **Actividad del día** con gráfico en tiempo real
-- **Top películas** más reseñadas del mes
+### 📊Dashboard de Usuario
+Cada usuario tiene su propio espacio personal:
+<img width="1919" height="173" alt="image" src="https://github.com/user-attachments/assets/7d95417e-335a-400a-b463-4d2c7bc2191a" />
 
-#### Gráficos y Visualizaciones:
-- **Gráfico de líneas**: Actividad de usuarios por mes
-- **Gráfico de barras**: Reseñas por categoría de película
-- **Gráfico circular**: Distribución de roles de usuarios
-- **Mapa de calor**: Actividad por hora del día
-- **Tabla de ranking**: Películas mejor calificadas
+- **Mis reseñas** 
+- <img width="1919" height="1019" alt="image" src="https://github.com/user-attachments/assets/612cdff4-10f7-4dba-8d1b-6e4d5af4b92c" />
+-Filtrado para buscar reseñas
+<img width="1918" height="1017" alt="image" src="https://github.com/user-attachments/assets/0fdc07e2-f55b-4dd0-b2fb-9116cdfc20d4" />
+-Ver galeria de peliculas para hacer una reseña
+<img width="1917" height="1010" alt="image" src="https://github.com/user-attachments/assets/c7616944-edfd-4e8b-b70d-6228d5c9ca45" />
+-Ver detalles de la pelicula(reseñas de la comunidad y apartada de añadir tu propia reseña
+<img width="1919" height="1009" alt="image" src="https://github.com/user-attachments/assets/adf58ad1-bfd2-45c8-a357-784fe977aff0" />
+<img width="1918" height="1003" alt="image" src="https://github.com/user-attachments/assets/578e032b-b51b-4235-9c3b-da01c547dffc" />
+-RESEÑA
+<img width="1234" height="699" alt="image" src="https://github.com/user-attachments/assets/d1f4d32a-13d7-4aa6-aa66-71df543c6d74" />
+-Mensaje y visualizacion de la reseña
+<img width="1198" height="640" alt="image" src="https://github.com/user-attachments/assets/6fbd3741-f71c-430d-9536-78a654caa58f" />
+<img width="1178" height="276" alt="image" src="https://github.com/user-attachments/assets/7952cb74-3300-4253-80b6-a13a31f9878e" />
+-Editar o eliminar las reseña como usuario
+<img width="1910" height="867" alt="image" src="https://github.com/user-attachments/assets/9cb37059-2b2e-4c4d-a19b-43a3e0fd4096" />
+  Notificacion de eliminacion
+  <img width="1919" height="974" alt="image" src="https://github.com/user-attachments/assets/1b158e39-4a3b-41c3-bfca-f65cf79103ff" />
+<img width="1407" height="989" alt="image" src="https://github.com/user-attachments/assets/c6a0e7de-e9f2-4e87-8b18-5a708e601c98" />
+-Editar reseña
+<img width="1919" height="1003" alt="image" src="https://github.com/user-attachments/assets/beda0222-f109-4571-91b4-6a925904f136" />
+-Mnesaje de reseña actualizada
+ <img width="1915" height="1014" alt="image" src="https://github.com/user-attachments/assets/8b089b7e-d434-4ccb-9b29-308622848f18" />
+### Catálogo de Películas (Usuario)
 
-#### Accesos Rápidos:
-- 🚀 **Crear nueva película** - Acceso directo al formulario
-- 👥 **Ver usuarios recientes** - Últimos registros
-- 📝 **Moderar reseñas** - Cola de pendientes
-- 📊 **Generar reporte** - Estadísticas exportables
-- ⚙️ **Configuración** - Ajustes del sistema
+#### Navegación y Búsqueda:
+- **Grid responsivo** con cards atractivas de películas
+- **Búsqueda inteligente** con sugerencias automáticas
+- **Filtros múltiples** por género, año, calificación
+- **Ordenamiento** por popularidad, fecha, calificación
+- **Paginación infinita** para mejor UX
 
+#### Información por Película:
+- **Portada en alta calidad** con lazy loading
+-  **Calificación promedio** calculada automáticamente
+-  **Sinopsis completa** con expand/collapse
+-  **Información técnica** (director, año, género)
+-  **Contador de reseñas** con link directo
+
+### ⭐Sistema de Reseñas (Usuario)
+
+#### Crear Reseña:
+- **Calificación por estrellas** interactiva (1-5)
+- **Editor de texto** enriquecido para comentarios
+- **Vista previa** antes de publicar
+- **Validación en tiempo real** de contenido
+- **Guardado automático** de borradores
+
+#### Visualización de Reseñas:
+- **Layout tipo tarjetas** con información del autor
+- **Sistema de likes** y valoración de reseñas
+- **Ordenamiento** por fecha, calificación o popularidad
+- **Respuestas anidadas** entre usuarios
+- **Reportar contenido** inapropiado
+
+##  API Endpoints
+
+### Autenticación
+- `POST /api/register` - Registro de usuario
+- `POST /api/login` - Inicio de sesión
+- `POST /api/logout` - Cerrar sesión
+
+### Películas
+- `GET /api/peliculas` - Listar películas
+- `GET /api/peliculas/{id}` - Obtener película
+- `POST /api/peliculas` - Crear película (Admin)
+- `PUT /api/peliculas/{id}` - Actualizar película (Admin)
+- `DELETE /api/peliculas/{id}` - Eliminar película (Admin)
+
+### Reseñas
+- `GET /api/peliculas/{id}/resenas` - Reseñas de película
+- `POST /api/resenas` - Crear reseña
+- `PUT /api/resenas/{id}` - Actualizar reseña
+- `DELETE /api/resenas/{id}` - Eliminar reseña
+
+### Requisitos minimos del Sistema
 ### Backend
 - **Laravel 11**
 - PHP 8.2+
@@ -282,28 +326,87 @@ app/
 - **chart.js**: Gráficos y visualizaciones
 - **ng-bootstrap**: Componentes Bootstrap para Angular
 
-#### Backend (Laravel)
-- **laravel/sanctum**: Autenticación API
-- **intervention/image**: Manipulación de imágenes
-- **guzzlehttp/guzzle**: Cliente HTTP
-- **faker**: Generación de datos de prueba
-- **phpunit**: Testing unitario
+Hardware Mínimo
+RAM: 8 GB (recomendado 16 GB)
+Almacenamiento: 5 GB libres
+Procesador: Intel i5 / AMD Ryzen 5 o superior
+Conexión a Internet: Banda ancha estable
+Sistema Operativo
+Windows: 10/11 (64-bit)
+macOS: 10.15 Catalina o superior
+Linux: Ubuntu 18.04+ / Debian 10+ / CentOS 8+
+Software Requerido
+Node.js y npm
+## 🔧 Instalación y Configuración
 
+### Prerrequisitos
+- Node.js 18+
+- PHP 8.2+
+- Composer
+- MySQL
 
-## 🧪 Testing y Calidad
+### Backend (Laravel)
 
-### 🔍 Testing Frontend
-- **Unit Tests**: Jasmine + Karma para componentes
-- **Integration Tests**: Pruebas de servicios y API
-- **E2E Tests**: Cypress para flujos completos
-- **Coverage**: Mínimo 80% de cobertura de código
+1. **Instalar dependencias:**
+```bash
+cd backend-laravel
+composer install
+```
 
-### �️ Testing Backend
-- **PHPUnit**: Tests unitarios y de feature
-- **Database Testing**: Pruebas con base de datos en memoria
-- **API Testing**: Validación completa de endpoints
-- **Security Testing**: Pruebas de vulnerabilidades
+2. **Configurar entorno:**
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
+3. **Configurar base de datos en `.env`:**
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=cinefilos_app
+DB_USERNAME=tu_usuario
+DB_PASSWORD=tu_password
+```
+
+4. **Ejecutar migraciones:**
+```bash
+php artisan migrate --seed
+```
+
+5. **Iniciar servidor:**
+```bash
+php artisan serve
+```
+
+### Frontend (Angular)
+
+1. **Instalar dependencias:**
+```bash
+cd frontend-angular
+npm install
+```
+
+2. **Configurar API URL en `environment.ts`:**
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:8000/api'
+};
+```
+
+3. **Iniciar aplicación:**
+```bash
+ng serve
+```
+
+## Acceso a la Aplicación
+
+- **Frontend**: http://localhost:4200
+- **Backend API**: http://localhost:8000/api
+- **Admin Panel**: http://localhost:4200/admin
+
+## OTROS
 ## 📦 Estructura Completa del Proyecto
 
 ```
@@ -422,309 +525,6 @@ CinefilosAPP/
 ├── 📄 LICENSE                       # Licencia del proyecto
 └── 📄 docker-compose.yml           # Configuración Docker
 ```
-
-
-### Credenciales por defecto:
-- **Admin**: admin@cinefilos.com / password
-- **Usuario**: usuario@test.com / password
-
-## 📱 Funcionalidades Principales
-
-### 🎬 Gestión de Películas
-El sistema de películas permite a los usuarios explorar un catálogo completo con:
-
-- **Catálogo dinámico** con información detallada de cada película
-- **Búsqueda avanzada** por título, género, director y año
-- **Sistema de calificaciones** con promedio automático
-- **Subida de imágenes** de portada con validación
-- **Filtros múltiples** para encontrar contenido específico
-
-### ⭐ Sistema de Reseñas
-Los usuarios pueden interactuar y compartir opiniones mediante:
-
-- **Reseñas completas** con calificación de 1-5 estrellas
-- **Comentarios detallados** con validación de contenido
-- **Moderación automática** de palabras inapropiadas
-- **Historial de reseñas** por usuario
-- **Censura inteligente** que protege el contenido
-
-## 👑 Panel de Administración
-
-El panel de administración es el corazón del sistema, diseñado para gestionar todos los aspectos de la plataforma.
-
-### 🏠 Dashboard Principal
-El dashboard ofrece una vista general completa con:
-
-- **Estadísticas en tiempo real** del sistema
-- **Gráficos de actividad** de usuarios y contenido
-- **Métricas de películas** más populares
-- **Resumen de reseñas** pendientes de moderación
-- **Alertas del sistema** y notificaciones importantes
-
-### 🎭 Gestión de Películas (Admin)
-Los administradores tienen control total sobre el catálogo:
-
-#### Componentes principales:
-- **Lista de películas** con paginación y filtros avanzados
-- **Editor de películas** con formulario completo
-- **Subida de imágenes** con preview en tiempo real
-- **Validación de datos** en frontend y backend
-- **Eliminación segura** con confirmación
-
-#### Funcionalidades detalladas:
-- ✅ **Crear películas**: Formulario completo con título, sinopsis, director, género, año
-- ✅ **Editar información**: Modificación de todos los campos de la película
-- ✅ **Gestión de imágenes**: Subida, preview y eliminación de portadas
-- ✅ **Control de visibilidad**: Activar/desactivar películas del catálogo público
-- ✅ **Búsqueda administrativa**: Filtros por estado, género, año y popularidad
-
-### 👥 Gestión de Usuarios (Admin)
-Sistema completo para administrar la comunidad:
-
-#### Componentes principales:
-- **Lista de usuarios** con información detallada
-- **Editor de perfiles** con roles y permisos
-- **Sistema de roles** (Usuario, Moderador, Administrador)
-- **Historial de actividad** por usuario
-- **Gestión de bans** y suspensiones
-
-#### Funcionalidades detalladas:
-- ✅ **Visualizar usuarios**: Lista completa con filtros por rol y estado
-- ✅ **Editar perfiles**: Modificar información personal y roles
-- ✅ **Gestión de roles**: Asignar permisos específicos
-- ✅ **Suspender usuarios**: Sistema de bans temporales y permanentes
-- ✅ **Historial de reseñas**: Ver todas las reseñas de un usuario específico
-
-### 📝 Moderación de Reseñas (Admin)
-Herramientas avanzadas para mantener la calidad del contenido:
-
-#### Componentes principales:
-- **Cola de moderación** con reseñas pendientes
-- **Sistema de censura** automática y manual
-- **Reportes de usuarios** sobre contenido inapropiado
-- **Historial de moderación** con acciones realizadas
-- **Filtros inteligentes** para detectar contenido problemático
-
-#### Funcionalidades detalladas:
-- ✅ **Aprobar/rechazar reseñas**: Sistema de moderación manual
-- ✅ **Censura automática**: Detección de palabras inapropiadas
-- ✅ **Edición de contenido**: Corrección de reseñas problemáticas
-- ✅ **Sistema de reportes**: Los usuarios pueden reportar contenido
-- ✅ **Estadísticas de moderación**: Métricas de contenido censurado
-
-
-## 👤 Experiencia del Usuario
-
-### 🔐 Autenticación y Registro
-Sistema seguro y user-friendly:
-
-- **Registro simple** con validación en tiempo real
-- <img width="609" height="866" alt="image" src="https://github.com/user-attachments/assets/4ba90af5-6d45-48b8-a52a-49b3f28555ed" />
-
-- **Login seguro** con Laravel Sanctum
-- **Recuperación de contraseña** por email
-- Olvidaste tu contraseña?
-- <img width="1919" height="998" alt="image" src="https://github.com/user-attachments/assets/66d93304-34f0-4538-995f-7760243e724f" />
-<img width="1919" height="1021" alt="image" src="https://github.com/user-attachments/assets/42ad487d-64f1-4e62-ae45-0940d75b7d87" />
-<img width="748" height="777" alt="image" src="https://github.com/user-attachments/assets/f82cbf25-eae5-43c7-a7d9-017b0d418e9c" />
-<img width="711" height="789" alt="image" src="https://github.com/user-attachments/assets/be7261d2-4328-41bc-8e68-565349b3ad78" />
-<img width="702" height="1600" alt="image" src="https://github.com/user-attachments/assets/360f2a67-6e9b-4b2c-8f89-aee54da2eb4f" />
-
-<img width="1919" height="1024" alt="image" src="https://github.com/user-attachments/assets/a2e20644-0db6-4851-b29c-6aaca6ec1102" />
--Verificar que si se cambio la contarseña
-<img width="617" height="858" alt="image" src="https://github.com/user-attachments/assets/76d44e69-0657-48b3-b105-7843cec68706" />
-<img width="545" height="605" alt="image" src="https://github.com/user-attachments/assets/d508a34b-6a24-4108-bedd-29770e69f0c5" />
-
-## registro de usuario
--Se pueden registrar un usuario nuevo con nombre correo y contraseña
-<img width="737" height="876" alt="image" src="https://github.com/user-attachments/assets/7957be0e-ec65-4034-8abf-e81471152cd9" />
--Redirige a la cuenta creada
-<img width="1919" height="783" alt="image" src="https://github.com/user-attachments/assets/0f1c898b-d9a0-47d2-a99b-42eac1def50c" />
--Usuario creado en la base de datos 
-
-
-## 👤 Experiencia del Usuario Final
-
-### 🎬 Catálogo de Películas (Usuario)
-
-#### Navegación y Búsqueda:
-- **Grid responsivo** con cards atractivas de películas
-- **Búsqueda inteligente** con sugerencias automáticas
-- **Filtros múltiples** por género, año, calificación
-- **Ordenamiento** por popularidad, fecha, calificación
-- **Paginación infinita** para mejor UX
-
-#### Información por Película:
-- 🎭 **Portada en alta calidad** con lazy loading
-- ⭐ **Calificación promedio** calculada automáticamente
-- 📝 **Sinopsis completa** con expand/collapse
-- 🎬 **Información técnica** (director, año, género)
-- 💬 **Contador de reseñas** con link directo
-
-### ⭐ Sistema de Reseñas (Usuario)
-
-#### Crear Reseña:
-- **Calificación por estrellas** interactiva (1-5)
-- **Editor de texto** enriquecido para comentarios
-- **Vista previa** antes de publicar
-- **Validación en tiempo real** de contenido
-- **Guardado automático** de borradores
-
-#### Visualización de Reseñas:
-- **Layout tipo tarjetas** con información del autor
-- **Sistema de likes** y valoración de reseñas
-- **Ordenamiento** por fecha, calificación o popularidad
-- **Respuestas anidadas** entre usuarios
-- **Reportar contenido** inapropiado
-
-### 🎯 Interfaz de Usuario
-Diseño moderno y responsivo:
-<img width="1919" height="1021" alt="image" src="https://github.com/user-attachments/assets/ac1307c1-578f-42dd-b1f8-bcd90bb9bbb4" />
-- **Navegación intuitiva** con menús organizados
-- **Diseño responsivo** que se adapta a todos los dispositivos
-- **Búsqueda inteligente** con sugerencias automáticas
-- **Filtros avanzados** para encontrar contenido específico
-- **Experiencia fluida** sin recargas de página
-<img width="1919" height="1012" alt="image" src="https://github.com/user-attachments/assets/087b2f9c-4e50-4611-9fb6-ab69a38b2649" />
-
-### 📊 Dashboard de Usuario
-Cada usuario tiene su propio espacio personal:
-<img width="1919" height="173" alt="image" src="https://github.com/user-attachments/assets/7d95417e-335a-400a-b463-4d2c7bc2191a" />
-
-- **Mis reseñas** 
-- <img width="1919" height="1019" alt="image" src="https://github.com/user-attachments/assets/612cdff4-10f7-4dba-8d1b-6e4d5af4b92c" />
--Filtrado para buscar reseñas
-<img width="1918" height="1017" alt="image" src="https://github.com/user-attachments/assets/0fdc07e2-f55b-4dd0-b2fb-9116cdfc20d4" />
--Ver galeria de peliculas para hacer una reseña
-<img width="1917" height="1010" alt="image" src="https://github.com/user-attachments/assets/c7616944-edfd-4e8b-b70d-6228d5c9ca45" />
--Ver detalles de la pelicula(reseñas de la comunidad y apartada de añadir tu propia reseña
-<img width="1919" height="1009" alt="image" src="https://github.com/user-attachments/assets/adf58ad1-bfd2-45c8-a357-784fe977aff0" />
-<img width="1918" height="1003" alt="image" src="https://github.com/user-attachments/assets/578e032b-b51b-4235-9c3b-da01c547dffc" />
--RESEÑA
-<img width="1234" height="699" alt="image" src="https://github.com/user-attachments/assets/d1f4d32a-13d7-4aa6-aa66-71df543c6d74" />
--Mensaje y visualizacion de la reseña
-<img width="1198" height="640" alt="image" src="https://github.com/user-attachments/assets/6fbd3741-f71c-430d-9536-78a654caa58f" />
-<img width="1178" height="276" alt="image" src="https://github.com/user-attachments/assets/7952cb74-3300-4253-80b6-a13a31f9878e" />
--Editar o eliminar las reseña como usuario
-<img width="1910" height="867" alt="image" src="https://github.com/user-attachments/assets/9cb37059-2b2e-4c4d-a19b-43a3e0fd4096" />
-  Notificacion de eliminacion
-  <img width="1919" height="974" alt="image" src="https://github.com/user-attachments/assets/1b158e39-4a3b-41c3-bfca-f65cf79103ff" />
-<img width="1407" height="989" alt="image" src="https://github.com/user-attachments/assets/c6a0e7de-e9f2-4e87-8b18-5a708e601c98" />
--Editar reseña
-<img width="1919" height="1003" alt="image" src="https://github.com/user-attachments/assets/beda0222-f109-4571-91b4-6a925904f136" />
--Mnesaje de reseña actualizada
- <img width="1915" height="1014" alt="image" src="https://github.com/user-attachments/assets/8b089b7e-d434-4ccb-9b29-308622848f18" />
-
-
-## 🔐 Seguridad
-
-- Autenticación mediante Laravel Sanctum
-- Validación de datos en frontend y backend
-- Protección CORS configurada
-- Sanitización de inputs
-- Sistema de censura automática
-
-## 📄 API Endpoints
-
-### Autenticación
-- `POST /api/register` - Registro de usuario
-- `POST /api/login` - Inicio de sesión
-- `POST /api/logout` - Cerrar sesión
-
-### Películas
-- `GET /api/peliculas` - Listar películas
-- `GET /api/peliculas/{id}` - Obtener película
-- `POST /api/peliculas` - Crear película (Admin)
-- `PUT /api/peliculas/{id}` - Actualizar película (Admin)
-- `DELETE /api/peliculas/{id}` - Eliminar película (Admin)
-
-### Reseñas
-- `GET /api/peliculas/{id}/resenas` - Reseñas de película
-- `POST /api/resenas` - Crear reseña
-- `PUT /api/resenas/{id}` - Actualizar reseña
-- `DELETE /api/resenas/{id}` - Eliminar reseña
-
-### Requisitos del Sistema
-💻 Hardware Mínimo
-RAM: 8 GB (recomendado 16 GB)
-Almacenamiento: 5 GB libres
-Procesador: Intel i5 / AMD Ryzen 5 o superior
-Conexión a Internet: Banda ancha estable
-🖥️ Sistema Operativo
-Windows: 10/11 (64-bit)
-macOS: 10.15 Catalina o superior
-Linux: Ubuntu 18.04+ / Debian 10+ / CentOS 8+
-📋 Software Requerido
-🟢 Node.js y npm
-## 🔧 Instalación y Configuración
-
-### Prerrequisitos
-- Node.js 18+
-- PHP 8.2+
-- Composer
-- MySQL
-
-### Backend (Laravel)
-
-1. **Instalar dependencias:**
-```bash
-cd backend-laravel
-composer install
-```
-
-2. **Configurar entorno:**
-```bash
-cp .env.example .env
-php artisan key:generate
-```
-
-3. **Configurar base de datos en `.env`:**
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=cinefilos_app
-DB_USERNAME=tu_usuario
-DB_PASSWORD=tu_password
-```
-
-4. **Ejecutar migraciones:**
-```bash
-php artisan migrate --seed
-```
-
-5. **Iniciar servidor:**
-```bash
-php artisan serve
-```
-
-### Frontend (Angular)
-
-1. **Instalar dependencias:**
-```bash
-cd frontend-angular
-npm install
-```
-
-2. **Configurar API URL en `environment.ts`:**
-```typescript
-export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:8000/api'
-};
-```
-
-3. **Iniciar aplicación:**
-```bash
-ng serve
-```
-
-## 🌐 Acceso a la Aplicación
-
-- **Frontend**: http://localhost:4200
-- **Backend API**: http://localhost:8000/api
-- **Admin Panel**: http://localhost:4200/admin
-- 
 [GitHub](https://github.com/Rubiss1118)
 
 
